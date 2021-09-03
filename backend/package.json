@@ -1,0 +1,11 @@
+{
+  "name": "eaas_backend",
+  "version": "1.0.0",
+  "description": "ICS-499 Emulator as a Service backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
