@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
 import jsnes from 'jsnes'
 
 import { nesLoadData } from './emulator'

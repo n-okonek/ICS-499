@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Nav from './components/Nav'
+//import Nav from './components/Nav'
 import './sass/styles.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Nav></Nav>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,14 +1,16 @@
-import NavBar, { Navbar } from 'react-bootstrap';
+import React from 'react';
+
+import { Navbar, Container } from 'react-bootstrap';
 
 function Nav() {
   return (
-    <NavBar bg='dark'>
+    <Navbar bg='dark'>
       <Container>
         <Navbar.Brand href="#home">
           EaaS
         </Navbar.Brand>
       </Container>
-    </NavBar>
+    </Navbar>
   );
 }
 
