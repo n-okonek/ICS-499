@@ -1,4 +1,5 @@
 import React from 'react';
+import './sass/styles.scss';
 
 import NESEmulator from './components/Emulator/NESEmulator';
 
