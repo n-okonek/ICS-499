@@ -1,0 +1,26 @@
+.emulator-container {
+  height: 550px;
+  width: 830px;
+  position: relative;
+  margin-inline: 25%;
+}
+
+input{
+  position: relative;
+}
+
+#emulator-canvas {
+  position: absolute;
+  top: 70px;
+  left: 87px;
+  height: 370px;
+  width: 488px;
+}
+
+#placeholder{
+  @extend #emulator-canvas;
+}
+
+.tv {
+  position: absolute;
+}

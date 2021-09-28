@@ -4,6 +4,8 @@ import jsnes from 'jsnes'
 
 import { nesLoadData } from './emulator'
 
+import tv from '../../images/tv.png'
+
 export default function NESEmulator({ height, width }) {
   const [fileBinary, setFileBinary] = useState(null)
 
@@ -25,14 +27,12 @@ export default function NESEmulator({ height, width }) {
       const canvas = document.getElementById('emulator-canvas')
       canvas.style.width = '0px'
       canvas.style.visibility = 'visible'
-      canvas.style.position = 'absolute'
 
       const placeholder = document.getElementById('placeholder')
       placeholder.style.backgroundColor = '#000'
       placeholder.style.color = '#fff'
-      placeholder.style.width = width + 'px'
-      placeholder.style.height = width + 'px'
       placeholder.style.textAlign = 'center'
+      placeholder.style.zIndex = 0;
     }
 
     if (fileBinary) {
@@ -49,10 +49,11 @@ export default function NESEmulator({ height, width }) {
 
   return (
     <div>
-      <canvas id='emulator-canvas' height='240' width='256' />
-      <div id='placeholder'>
+      <canvas id='emulator-canvas' height='370' width='483' />
+      <div id='placeholder' height='370' width='483'>
         <span id='placeholder-text'>No Game Loaded</span>
       </div>
+      <div className='tv'><img src={tv} /></div>
       <input type='file' id='rom-selector' onChange={handleFileChange} />
     </div>
   )
