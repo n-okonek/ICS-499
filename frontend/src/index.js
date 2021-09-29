@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import Nav from './components/Nav';
+import Header from './components/Header';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Nav />
+    <Header />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
