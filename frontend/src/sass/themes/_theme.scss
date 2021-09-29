@@ -2,4 +2,11 @@
 
 body{
   background-color: v.$background;
+  font-family: v.$body-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: v.$code
 }

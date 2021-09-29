@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as v;
+
 .emulator-container {
   height: 550px;
   width: 830px;
@@ -19,6 +21,7 @@ input{
 
 #placeholder{
   @extend #emulator-canvas;
+  font-family: v.$nes;
 }
 
 .tv {
