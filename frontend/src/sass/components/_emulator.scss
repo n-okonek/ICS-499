@@ -1,29 +1,35 @@
 @use '../abstracts/variables' as v;
 
-.emulator-container {
-  height: 550px;
-  width: 830px;
-  position: relative;
-  margin-inline: 25%;
+#emulator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
-input{
-  position: relative;
+#screen-container {
+    width: 512px;
+    height: 480px;
 }
 
-#emulator-canvas {
-  position: absolute;
-  top: 70px;
-  left: 87px;
-  height: 370px;
-  width: 488px;
+#pause-button {
+  margin-top: 6px;
 }
 
-#placeholder{
-  @extend #emulator-canvas;
-  font-family: v.$nes;
+#rom-selector-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .tv {
   position: absolute;
+}
+
+#screen {
+    width: 512px;
+    height: 480px;
+}
+
+#rom-selector-label {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
 }

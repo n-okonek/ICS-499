@@ -1,13 +1,22 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './sass/styles.scss';
 
-import NESEmulator from './components/Emulator/NESEmulator';
+import EmulatorTestingView from './views/EmulatorTestingView';
 
 function App() {
   return (
-    <div className="emulator-container">
-      <NESEmulator height={240} width={512} />
-    </div>
+    <Container id="container">
+      <Row>
+        <Col lg="2"></Col>
+        <Col id="primary-column" className="text-secondary">
+          <EmulatorTestingView  />
+        </Col>
+        <Col lg="2"></Col>
+      </Row>
+    </Container>
   );
 }
 
