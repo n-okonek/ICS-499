@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './sass/styles.scss';
 
-import EmulatorTestingView from './views/EmulatorTestingView';
+import OuterScreenView from './views/OuterScreenView';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Row>
         <Col lg="2"></Col>
         <Col id="primary-column" className="text-secondary">
-          <EmulatorTestingView  />
+            <OuterScreenView />
         </Col>
         <Col lg="2"></Col>
       </Row>

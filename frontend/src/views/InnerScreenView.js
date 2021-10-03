@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Emulator from '../components/Emulator';
+import Static from './Static';
 
-export default function EmulatorTestingView() {
+export default function InnerScreenView() {
 
     const [romData, setRomData] = useState();
     const [paused, setPaused] = useState(false);
@@ -35,6 +36,7 @@ export default function EmulatorTestingView() {
 
     return (
         <div id="rom-selector-container">
+            <Static width={398} height={373} />
             <Form>
                 <Form.Group className="text-center">
                     <Form.Label id="rom-selector-label">please load a .nes file</Form.Label>

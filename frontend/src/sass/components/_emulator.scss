@@ -4,15 +4,23 @@
   display: flex;
   flex-direction: column;
   align-items: end;
+  position: absolute;
+  top: 60px;
+  left: 72px;
 }
 
 #screen-container {
-    width: 512px;
-    height: 480px;
+    width: 398px;
+    height: 373px;
+     
+    & > .Screen{
+      top: 11px;
+      left: 12px;
+    }
 }
 
 #pause-button {
-  margin-top: 6px;
+  margin-top: 120px;
 }
 
 #rom-selector-container {
@@ -20,13 +28,25 @@
   flex-direction: column;
 }
 
-.tv {
-  position: absolute;
-}
+.outer-screen{
+  position: relative;
+
+  & img {
+    position: relative;
+    z-index: 2;
+  }
+
+  & canvas {
+    position: absolute;
+    z-index: 0;
+    top: 70px;
+    left: 80px;
+  }
+} 
 
 #screen {
-    width: 512px;
-    height: 480px;
+    width: 520px;
+    height: 393px;
 }
 
 #rom-selector-label {
