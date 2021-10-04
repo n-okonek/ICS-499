@@ -11,3 +11,5 @@ The ROM management system is composed of a frontend and backend.
 The frontend provides the user interface in which users can upload, manage, delete and boot their ROMs. When a user decides to boot a ROM, the frontend will initialize an instance of the NES emulator. This frontend also provides other UI elements needed for the user to login/signup.
 #### Backend
 The backend of the ROM management system contains all the ROM and user management logic. The backend is a remote server which listens and responds to requests from the frontend. The backend is also connected to an external database instance. The database instance stores user account information along with ROM data and ROM metadata.
+
+Smart commit test
