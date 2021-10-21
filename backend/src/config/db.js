@@ -5,6 +5,12 @@ if (!process.env.DB_CONNECTION) {
     throw new Error('Invalid mysql connection string.');
 }
 
-const db = new Sequelize(process.env.DB_CONNECTION);
+// If testing, init a in-memory database
+const inMemoryOptions = {
+    dialect: 'sqlite',
+    storage: ':memory:'
+}
+const isTest = process.env.NODE_ENV === 'test';
+const db = isTest ? new Sequelize(inMemoryOptions) : new Sequelize(process.env.DB_CONNECTION);
 
 export default db;
