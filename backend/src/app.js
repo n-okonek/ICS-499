@@ -34,6 +34,8 @@ app.use((req, res, next) => {
 });
 
 const port = process.env.PORT || 9002;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.debug(`Server listening on port ${port}`);
 })
+
+export { app, server }
