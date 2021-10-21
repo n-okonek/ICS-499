@@ -7,6 +7,19 @@ const listRoms = async(req, res, next) => {
     res.status(200).json(roms);
 }
 
+const getRomById = async(req, res, next) => {
+    const { romid } = req.params
+    const rom = await RomService.getRomById(romid);
+
+    if (!rom) {
+        res.status(404).json({
+            message: `ROM with id ${romid} not found.`
+        })
+    }
+
+    res.status(200).json(rom);
+}
+
 const createRom = async(req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -20,5 +33,6 @@ const createRom = async(req, res, next) => {
 
 export default {
     listRoms,
+    getRomById,
     createRom
 }

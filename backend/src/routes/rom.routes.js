@@ -6,6 +6,7 @@ import { check } from 'express-validator';
 const router = express.Router();
 
 router.get('/', RomController.listRoms);
+router.get('/:romid', RomController.getRomById);
 router.post('/', RomValidator.createRom, RomController.createRom);
 
 export default router;
