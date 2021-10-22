@@ -9,7 +9,7 @@ describe('Sequelize Object', () => {
 
     it('should authenticate to database', async() => {
         try {
-            await db.authenticate()
+            await db.sequelize.authenticate()
         } catch (e) {
             assert.fail('DB object did not authenticate')
         }

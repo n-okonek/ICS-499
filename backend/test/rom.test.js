@@ -1,11 +1,11 @@
-import fetch from 'node-fetch';
+import got from 'got';
+import crypto from 'crypto';
 import { expect } from 'chai';
 import request from 'supertest';
 import { refreshDB } from './helper.js';
 
 import { app } from '../src/app.js';
 import db from '../src/config/db.js';
-import rom from '../src/models/rom.js';
 
 describe('GET /rom', () => {
     before(async() => {
@@ -34,19 +34,12 @@ describe('GET /rom/:romid', () => {
 
     beforeEach(async() => {
         // delete records from rom
-        await db.query('DELETE FROM rom;');
-        const response = await fetch('http://localhost:9001/rom', {
-            method: 'POST',
-            body: JSON.stringify({
+        const json = await got.post('http://localhost:9001/rom', {
+            json: {
                 name: 'test',
                 romdata: 'another one'
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
             }
-        })
-        const json = await response.json();
+        }).json();
         romid = json.romid;
 
         get = request(app)
@@ -60,13 +53,11 @@ describe('GET /rom/:romid', () => {
     })
 
     it('should return a response containing rom fields', () => {
-        const REQUIRED_FIELDS = Object.keys(rom.rawAttributes);
+        const REQUIRED_FIELDS = Object.keys(db.rom.rawAttributes);
 
         get.end((err, res) => {
             expect(res).to.have.property('body');
             const { body } = res;
-            console.log('body');
-            console.log(body);
             const responseFields = Object.keys(body);
             // Ensure that length of required fields equals length of response fields
             expect(responseFields.length).to.equal(REQUIRED_FIELDS.length);
@@ -89,11 +80,15 @@ describe('GET /rom/:romid', () => {
                 expect(body[field], `field ${field} is null`).to.not.be.null;
             });
         });
-    })
+    });
 })
 
 describe('POST /rom', () => {
     let post = null;
+    let dummyBody = {
+        name: "A random ROM",
+        romdata: "a rom's blob here"
+    }
 
     before(async() => {
         await refreshDB();
@@ -101,13 +96,10 @@ describe('POST /rom', () => {
 
     beforeEach(async() => {
         // delete records from rom
-        await db.query('DELETE FROM rom;');
+        await db.sequelize.query('DELETE FROM rom;');
         post = request(app)
             .post('/rom')
-            .send({
-                name: "A random ROM",
-                romdata: "a rom's blob here"
-            })
+            .send(dummyBody)
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
     })
@@ -123,8 +115,7 @@ describe('POST /rom', () => {
     });
 
     it('should have fields in the body that match the ROM model', () => {
-        // romhash is not returned in post response because it is computed after insert (trigger)
-        const REQUIRED_FIELDS = Object.keys(rom.rawAttributes).filter(field => field !== 'romhash');
+        const REQUIRED_FIELDS = Object.keys(db.rom.rawAttributes);
         post.end((err, res) => {
             const { body } = res;
             const responseFields = Object.keys(body);
@@ -139,6 +130,35 @@ describe('POST /rom', () => {
             })
             expect(sameFields).to.be.true;
         })
-    })
+    });
+
+    it('should create a rom entity with fields that match the request body', async() => {
+        post.end((err, res) => {
+            const { body } = res;
+            expect(body.name, 'name in response is not equal to post data').to.be.equal(dummyBody.name);
+            expect(body.romdata, 'data in response is not equal to post data').to.be.equal(dummyBody.romdata);
+        })
+    });
+
+    it('should create a rom entity with a romhash equal to SHA1(romdata)', () => {
+        post.end((err, res) => {
+            const { body } = res;
+            const sha = crypto.createHash('sha1');
+            sha.update(dummyBody.romdata);
+            const dummyHash = sha.digest('hex');
+            expect(body.romhash).to.be.equal(dummyHash);
+        })
+    });
+
+    it('should create a rom entity which can be fetched by id', async() => {
+        post.end(async(err, res) => {
+            const { body } = res;
+            const { romid } = body;
+
+            const json = await got.get(`http://localhost:${process.env.PORT}/rom/${romid}`).json();
+            expect(romid).to.be.equal(json.romid);
+            expect(json.name).to.be.equal(dummyBody.name);
+        })
+    });
 
 })
