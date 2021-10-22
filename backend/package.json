@@ -5,8 +5,8 @@
     "main": "app.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon ./src/app.js",
-        "test": "NODE_ENV=test mocha --config ./test/.mocharc.json",
+        "dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
+        "test": "cross-env NODE_ENV=test mocha --config ./test/.mocharc.json",
         "test-watch": "NODE_ENV=test mocha --watch",
         "m": "mocha --help"
     },
@@ -24,9 +24,11 @@
     },
     "devDependencies": {
         "chai": "^4.3.4",
+        "cross-env": "^7.0.3",
+        "got": "^11.8.2",
         "mocha": "^9.1.3",
-        "node-fetch": "^3.0.0",
         "nodemon": "^2.0.13",
+        "sqlite3": "git@github.com:mapbox/node-sqlite3.git#3fb3715c4e699ca3bc19e47b136758c66f61e477",
         "supertest": "^6.1.6"
     }
 }

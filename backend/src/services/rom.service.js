@@ -1,9 +1,6 @@
-import rom from '../models/rom.js';
+import db from '../config/db.js';
 
-// Import all of the models here so that they actually get used and populate the
-// database. As other services get written they'll get moved.
-import role from '../models/role.js';
-import user from '../models/user.js';
+const { rom } = db;
 
 const getAllRoms = async() => {
     return await rom.findAll();
