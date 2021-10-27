@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as v;
+
+#header-nav {
+  border-radius: 30px;
+  font-family: v.$nes;
+}
