@@ -12,3 +12,15 @@
   font-style: normal;
 }
 
+@font-face{
+  font-family: 'pretendo';
+  src: url('../fonts/pretendo-webfont.eot');
+  src: url('../fonts/pretendo-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/pretendo-webfont.woff2') format('woff2'),
+       url('../fonts/pretendo-webfont.woff') format('woff'),
+       url('../fonts/pretendo-webfont.ttf') format('truetype'),
+       url('../fonts/pretendo-webfont.svg#pretendoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
