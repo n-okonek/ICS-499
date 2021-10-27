@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import Emulator from '../components/Emulator';
+import Emulator from '../../../components/Emulator';
 import Static from './Static';
 
 export default function InnerScreenView() {
