@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function Header() {
   return (
@@ -10,16 +10,30 @@ function Header() {
           NoNTENDO Emulator
         </Navbar.Brand>
         <Nav>
-          <Nav.Link href='/'>Home</Nav.Link>
-          <Nav.Link href='/login'>Sign In</Nav.Link>
-          <Nav.Link href='/logout'>Sign Out</Nav.Link>
+          <LinkContainer to='/'>
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/login">
+            <Nav.Link>Sign In</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to='/logout'>
+            <Nav.Link>Sign Out</Nav.Link>
+          </LinkContainer>
           <NavDropdown title='My Account'>
-            <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-            <NavDropdown.Item href='/library'>My Library</NavDropdown.Item>
+            <LinkContainer to='/profile'>
+              <NavDropdown.Item >Profile</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to='/library'>
+              <NavDropdown.Item>My Library</NavDropdown.Item>
+            </LinkContainer>
           </NavDropdown>
           <NavDropdown title='Admin'>
-            <NavDropdown.Item href='/user-management'>User management</NavDropdown.Item>
-            <NavDropdown.Item href='/rom-management'>Rom Management</NavDropdown.Item>
+            <LinkContainer to='/user-management'>
+              <NavDropdown.Item>User management</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to='/rom-management'>
+              <NavDropdown.Item>Rom Management</NavDropdown.Item>
+            </LinkContainer>
           </NavDropdown>
         </Nav>
       </Container>
