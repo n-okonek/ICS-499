@@ -1,17 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
+//paths to page view components
 import OuterScreenView from '../views/pages/Home/OuterScreenView';
+import Login from '../views/pages/login/Login';
 
 export default function RouterSwitch(){
   return (
     <Switch>
-      <Route path="/">
-        <OuterScreenView />
-      </Route>
-      {/* <Route path='/login'>
-        <Login />
-      </Route>
-      <Route path='/create-account'>
+      <Route path="/" component={OuterScreenView} />
+      <Route path='/login' component={Login} />
+      {/* <Route path='/create-account'>
         <CreateAccount />
       </Route>
       <Route path='/logout'>

@@ -3,23 +3,19 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './sass/styles.scss';
-import RouterSwitch from './components/RouterSwitch';
-import Header from './components/Header';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import OuterScreenView from './views/pages/Home/OuterScreenView';
+import Login from './views/pages/login/Login';
 
 function App() {
   return (
-    <Container id="container">
-      <Row>
-        <Header />
-      </Row>
-      <Row>
-        <Col lg="2"></Col>
-        <Col id="primary-column" className="text-secondary">
-          <RouterSwitch />
-        </Col>
-        <Col lg="2"></Col>
-      </Row>
-    </Container>
+    <Router>
+      <div>
+        <Route exact path="/" component={OuterScreenView} />
+        <Route path='/login' component={Login} />
+      </div>
+    </Router>
   );
 }
 
