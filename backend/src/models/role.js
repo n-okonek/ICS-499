@@ -3,14 +3,15 @@ export default function(sequelize, DataTypes) {
         role_id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
+            primaryKey: true
         },
         title: {
             type: DataTypes.STRING,
+            allowNull: false
         },
         created: {
             type: DataTypes.DATE,
+            defaultValue: Sequelize.NOW
         }
     }, {
         tableName: 'role'
