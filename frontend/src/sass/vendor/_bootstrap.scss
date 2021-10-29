@@ -1,2 +1,13 @@
+@use '../abstracts/variables' as v;
+
 /*import the bootstrap node module default styles*/
 @import '~bootstrap/scss/bootstrap';
+
+/* bootstrap style overrides go here */
+.form-floating{
+  font-family: v.$nes;
+}
+
+.btn {
+  font-family: v.$nes;
+}
