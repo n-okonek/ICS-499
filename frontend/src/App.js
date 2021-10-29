@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div>
         <Route exact path="/" component={OuterScreenView} />
-        <Route path='/login' component={Login} />
+        <Route path="/login" component={Login} />
       </div>
     </Router>
   );
