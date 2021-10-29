@@ -5,21 +5,19 @@ import Col from 'react-bootstrap/Col';
 
 import Header from '../../components/Header';
 
-const Layout = ({children}) => {
-  return(
-     <Container id="container">
-       <Row>
-         <Header />
-       </Row>
-       <Row>
-         <Col lg="2"></Col>
-         <Col id="primary-column" className="text-secondary">
-           {children}
-         </Col>
-         <Col lg="2"></Col>
-       </Row>
-     </Container>
-  )
-}
+const Layout = ({ children }) => (
+  <Container id="container">
+    <Row>
+      <Header />
+    </Row>
+    <Row>
+      <Col lg="2" />
+      <Col id="primary-column" className="text-secondary">
+        {children}
+      </Col>
+      <Col lg="2" />
+    </Row>
+  </Container>
+);
 
 export default Layout;
