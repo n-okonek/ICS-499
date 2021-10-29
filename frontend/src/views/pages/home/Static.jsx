@@ -6,7 +6,7 @@ const Static = (props) => {
   const draw = (ctx, h, v, pw, ph) => {
     const lum = Math.floor(Math.random() * 40);
 
-    ctx.fillStyle = `hsl(0, 0%,${lum}%)`;
+    ctx.fillStyle = `hsl(0, 0%,${ lum }%)`;
     ctx.fillRect(h, v, pw, ph);
   };
 

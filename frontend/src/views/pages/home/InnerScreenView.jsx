@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Emulator from '../../../components/Emulator';
 import Static from './Static';
 
-export default function InnerScreenView() {
+export default function InnerScreenView () {
   const [romData, setRomData] = useState();
   const [paused, setPaused] = useState(false);
 
