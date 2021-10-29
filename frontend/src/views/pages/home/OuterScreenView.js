@@ -1,7 +1,7 @@
 import React from 'react';
 import InnerScreenView from './InnerScreenView';
 
-import Layout from '../Layout';
+import Layout from '../layout';
 import tv from '../../../images/tv.png'
 
 export default function OuterScreenView() {

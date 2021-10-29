@@ -2,7 +2,7 @@ import  React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import Form from 'react-bootstrap/Form';
-import Layout from '../Layout';
+import Layout from '../layout';
 
 export default function Login() {
   const [validated, setValidated] = useState(false);

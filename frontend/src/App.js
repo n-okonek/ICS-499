@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import './sass/styles.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import OuterScreenView from './views/pages/Home/OuterScreenView';
+import OuterScreenView from './views/pages/home/OuterScreenView';
 import Login from './views/pages/login/Login';
 
 function App() {
