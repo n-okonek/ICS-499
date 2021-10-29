@@ -11,7 +11,7 @@ export default function(sequelize, DataTypes) {
         },
         created: {
             type: DataTypes.DATE,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         tableName: 'role'
