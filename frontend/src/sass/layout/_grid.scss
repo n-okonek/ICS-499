@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as v;
+
+.grid-container {
+  background: v.$content-background;
+  width: 100%;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+}
