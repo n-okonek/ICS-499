@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Table } from 'react-bootstrap';
+import Layout from '../layout';
 
 export default function Login() {
+  //TODO: remove item1 and 2 when connected to backend replace array with object in list
   const item1 = {
     name: "mario",
     rom: "mario.nes",
@@ -15,22 +17,28 @@ export default function Login() {
   };
 
   const list = [item1, item2].map((item, idx) => (
-    <ListGroup horizontal key={idx}>
-      <ListGroup.Item>{item.name}</ListGroup.Item>
-      <ListGroup.Item>{item.rom}</ListGroup.Item>
-      <ListGroup.Item>{item.date}</ListGroup.Item>
-    </ListGroup>
+    <tr key={idx}>
+      <td>{item.name}</td>
+      <td>{item.rom}</td>
+      <td>{item.date}</td>
+    </tr>
   ));
 
   return (
     <Layout>
       <div className="grid-container">
-        <ListGroup horizontal className="list-header">
-          <ListGroup.Item>Name</ListGroup.Item>
-          <ListGroup.Item>Rom File</ListGroup.Item>
-          <ListGroup.Item>Last Save Date</ListGroup.Item>
-        </ListGroup>
-        {list}
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Rom Name</th>
+              <th>Rom File</th>
+              <th>Last Save Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list}
+          </tbody>
+        </Table>
       </div>
     </Layout>
   )
