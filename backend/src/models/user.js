@@ -13,8 +13,9 @@ export default function(sequelize, DataTypes) {
                 key: 'role_id'
             }
         },
-        username: {
+        email: {
             type: DataTypes.STRING,
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,

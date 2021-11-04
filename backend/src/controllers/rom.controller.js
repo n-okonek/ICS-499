@@ -1,6 +1,5 @@
 import RomService from '../services/rom.service.js';
 import { validationResult } from 'express-validator';
-import romService from '../services/rom.service.js';
 
 const listRoms = async(req, res, next) => {
     const roms = await RomService.getAllRoms();
