@@ -27,6 +27,14 @@ export default function(sequelize, DataTypes) {
         sha.update(rom.romdata);
         rom.romhash = sha.digest('hex');
     })
+    // romhash needs to be recomputed on update
+    rom.addHook('afterUpdate', (rom, options) => {
+        const sha = crypto.createHash('sha1');
+        sha.update(rom.romdata);
+        const digest = sha.digest('hex');
+        rom.romhash = digest
+        rom.save();
+    })
 
     return rom;
 }

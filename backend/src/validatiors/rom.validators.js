@@ -15,6 +15,18 @@ const createRom = checkSchema({
     }
 })
 
+const updateRom = checkSchema({
+    name: {
+        isString: true,
+        errorMessage: 'name must be a string'
+    },
+    romdata: {
+        isString: true,
+        errorMessage: 'romdata blob must be a string.'
+    }
+})
+
 export default {
-    createRom
+    createRom,
+    updateRom
 }

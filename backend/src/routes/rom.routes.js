@@ -8,5 +8,7 @@ const router = express.Router();
 router.get('/', RomController.listRoms);
 router.get('/:romid', RomController.getRomById);
 router.post('/', RomValidator.createRom, RomController.createRom);
+router.delete('/:romid', RomController.deleteRomById);
+router.put('/:romid', RomController.updateRom);
 
 export default router;
