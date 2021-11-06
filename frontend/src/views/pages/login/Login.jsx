@@ -3,13 +3,15 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Layout from '../layout';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   const [validated, setValidated] = useState(false);
+  const history = useHistory();
 
   function submitForm(valid) {
     if (valid) {
-      //do-something
+      //TODO: submit login form control
     }
   }
 
@@ -24,9 +26,9 @@ export default function Login() {
     submitForm(validated);
   };
 
-
-
-  function createAccount() {
+  const createAccount = () => {
+    let path = '/create-account';
+    history.push(path);
   }
 
   return (
