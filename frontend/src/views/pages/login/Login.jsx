@@ -4,14 +4,28 @@ import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Layout from '../layout';
 import { useHistory } from 'react-router-dom';
+import Axios from 'axios';
 
 export default function Login() {
   const [validated, setValidated] = useState(false);
+  const [inputs, setInputs] = useState({});
   const history = useHistory();
 
-  function submitForm(valid) {
-    if (valid) {
-      //TODO: submit login form control
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({ ...values, [name]: value }));
+  }
+
+  function submitForm(validated) {
+    if (validated) {
+      Axios.post("http://localhost:9001/login", {
+        email: inputs.email,
+        password: inputs.password
+      }).then(() => {
+        let path = '/profile';
+        history.push(path);
+      });
     }
   }
 
@@ -21,6 +35,7 @@ export default function Login() {
       event.preventDefault();
       event.stopPropagation();
     }
+    event.preventDefault();
 
     setValidated(true);
     submitForm(validated);
@@ -37,13 +52,13 @@ export default function Login() {
         <Form validated={validated} onSubmit={handleSubmit}>
           <Form.Group>
             <FloatingLabel controlId="floatingInput" label="Email Adress" className="mb-3">
-              <Form.Control type="email" placeholder="name@example.com" />
+              <Form.Control name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
             </FloatingLabel>
           </Form.Group>
 
           <Form.Group>
             <FloatingLabel controlId="floatingPassword" label="Password">
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange} />
             </FloatingLabel>
           </Form.Group>
 
