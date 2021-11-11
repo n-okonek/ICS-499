@@ -2,6 +2,7 @@ import './config/environment.js';
 import express from 'express';
 import logger from 'morgan'
 import cookieParser from 'cookie-parser';
+import UserController from './controllers/user.controller.js';
 //Routers
 import RomRouter from './routes/rom.routes.js';
 import UserRouter from './routes/user.route.js';
@@ -15,6 +16,8 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 
+// Always 'req.user' to the currently logged in user.
+app.use(UserController.validateSession);
 
 // Add routes to express instance
 app.use('/rom', RomRouter);

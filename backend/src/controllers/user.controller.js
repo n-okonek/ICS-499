@@ -38,7 +38,12 @@ const login = async(req, res, next) => {
     return res.status(200).json(login_session);
 }
 
+const validateSession = async(req, res, next) => {
+    next();
+}
+
 export default {
     signup,
+    validateSession,
     login
 }
