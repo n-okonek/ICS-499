@@ -34,8 +34,10 @@ const login = async(req, res, next) => {
     if (login_session === null) {
         return res.status(422).json({ message: "Invalid email or password"});
     }
-
-    return res.status(200).json(login_session);
+    return res.writeHead(200, {
+        "Set-Cookie": "session=" + JSON.stringify(login_session) + "; HttpOnly",
+        "Access-Control-Allow-Credentials": "true"
+    }).send();
 }
 
 const validateSession = async(req, res, next) => {
