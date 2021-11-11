@@ -39,6 +39,25 @@ const login = async(req, res, next) => {
 }
 
 const validateSession = async(req, res, next) => {
+    if (!req.cookies.session) {
+        // No session cookie is present.
+        return next();
+    }
+
+    const session = cookieParser.JSONCookie(req.cookies.session);
+    if (session === req.cookies.session) {
+        // The session cookie isn't properly encoded using JSON format.
+        return next();
+    }
+
+    const user = await UserService.getUserFromSession(session);
+    if (!user) {
+        // The session in the cookie is invalid.
+       return next();
+    }
+
+    // Success!
+    req.user = user;
     next();
 }
 

@@ -12,6 +12,26 @@ const getUserByEmail = async email => {
     })
 }
 
+const getUserBySession = async sessionCookie => {
+    // Get the session
+    const session = await session.findOne({
+        where: {
+            session: sessionCookie.session_id
+        }
+    });
+
+    // Return false if the session's invalid.
+    if (!session) {
+        return false;
+    }
+
+    return await user.findOne({
+        where: {
+            user_id: session.user_id
+        }
+    });
+}
+
 const existingAccount = async body => {
     return null !== await getUserByEmail(body.email);
 }
@@ -89,5 +109,6 @@ export default {
     signup,
     login,
     getUserByEmail,
+    getUserBySession,
     existingAccount,
 }
