@@ -14,20 +14,20 @@ const getUserByEmail = async email => {
 
 const getUserBySession = async sessionCookie => {
     // Get the session
-    const session = await session.findOne({
+    const userSession = await session.findOne({
         where: {
-            session: sessionCookie.session_id
+            session_id: sessionCookie.session_id
         }
     });
 
     // Return false if the session's invalid.
-    if (!session) {
+    if (!userSession) {
         return false;
     }
 
     return await user.findOne({
         where: {
-            user_id: session.user_id
+            user_id: userSession.user_id
         }
     });
 }
