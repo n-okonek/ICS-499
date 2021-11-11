@@ -1,6 +1,7 @@
 import './config/environment.js';
 import express from 'express';
 import logger from 'morgan'
+import cookieParser from 'cookie-parser';
 //Routers
 import RomRouter from './routes/rom.routes.js';
 import UserRouter from './routes/user.route.js';
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(cookieParser());
 
 
 // Add routes to express instance
