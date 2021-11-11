@@ -6,6 +6,10 @@ const getAllRoles = async() => {
     return await role.findAll();
 }
 
+const getRoleById = async role_id => {
+    return await role.findByPk(role_id);
+}
+
 const createRole = async title => {
     return await role.create({ title: title });
 }
@@ -17,6 +21,7 @@ const deleteRole = async role_id => {
 
 export default {
     getAllRoles,
+    getRoleById,
     createRole,
     deleteRole
 }
