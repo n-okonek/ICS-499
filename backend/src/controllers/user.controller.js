@@ -44,13 +44,13 @@ const validateSession = async(req, res, next) => {
         return next();
     }
 
-    const session = cookieParser.JSONCookie(req.cookies.session);
+    const session = JSON.parse(req.cookies.session);
     if (session === req.cookies.session) {
         // The session cookie isn't properly encoded using JSON format.
         return next();
     }
 
-    const user = await UserService.getUserFromSession(session);
+    const user = await UserService.getUserBySession(session);
     if (!user) {
         // The session in the cookie is invalid.
        return next();
