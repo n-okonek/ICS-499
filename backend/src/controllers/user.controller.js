@@ -61,8 +61,19 @@ const validateSession = async(req, res, next) => {
     next();
 }
 
+const getInfo = async(req, res, next) => {
+    if (!req.user) {
+        return res.status(200).json({ message: "no user logged in" });
+    }
+
+    return res.status(200).json({
+        email: req.user.email
+    });
+}
+
 export default {
     signup,
     validateSession,
+    getInfo,
     login
 }
