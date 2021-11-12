@@ -34,11 +34,48 @@ const login = async(req, res, next) => {
     if (login_session === null) {
         return res.status(422).json({ message: "Invalid email or password"});
     }
+    return res.writeHead(200, {
+        "Set-Cookie": "session=" + JSON.stringify(login_session) + "; HttpOnly",
+        "Access-Control-Allow-Credentials": "true"
+    }).send();
+}
 
-    return res.status(200).json(login_session);
+const validateSession = async(req, res, next) => {
+    if (!req.cookies.session) {
+        // No session cookie is present.
+        return next();
+    }
+
+    const session = JSON.parse(req.cookies.session);
+    if (session === req.cookies.session) {
+        // The session cookie isn't properly encoded using JSON format.
+        return next();
+    }
+
+    const user = await UserService.getUserBySession(session);
+    if (!user) {
+        // The session in the cookie is invalid.
+       return next();
+    }
+
+    // Success!
+    req.user = user;
+    next();
+}
+
+const getInfo = async(req, res, next) => {
+    if (!req.user) {
+        return res.status(200).json({ message: "no user logged in" });
+    }
+
+    return res.status(200).json({
+        email: req.user.email
+    });
 }
 
 export default {
     signup,
+    validateSession,
+    getInfo,
     login
 }
