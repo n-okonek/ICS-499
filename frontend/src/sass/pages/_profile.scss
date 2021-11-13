@@ -1,0 +1,11 @@
+@use '../abstracts/variables' as v;
+
+.profile{
+  &-label{
+    font-family: v.$nes;
+  }
+
+  &-data{
+    font-family: v.$code;
+  }
+}
