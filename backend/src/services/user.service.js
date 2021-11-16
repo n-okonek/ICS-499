@@ -104,6 +104,5 @@ export default {
     login,
     getUserByEmail,
     existingAccount,
-    getAllUsers,
-    updateUserRole
+    
 }

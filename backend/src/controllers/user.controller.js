@@ -72,6 +72,5 @@ const updateUserRole = async(req, res, next) => {
 export default {
     signup,
     login,
-    getAllUsers,
-    updateUserRole
+    
 }
