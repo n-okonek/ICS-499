@@ -125,4 +125,6 @@ export default {
     getUserByEmail,
     getUserBySession,
     existingAccount,
+    getAllUsers,
+    updateUserRole
 }
