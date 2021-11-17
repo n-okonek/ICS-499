@@ -73,6 +73,37 @@ const getInfo = async(req, res, next) => {
     });
 }
 
+const getAllUsers = async(req, res, next) => {
+    const users = await UserService.getAllUsers();
+
+    res.status(200).json(users);
+}
+
+const updateUserRole = async(req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() })
+    }
+    const { role_id } = req.params;
+    const { body } = req;
+
+    const existingRole = await RoleService.getRoleById(role_id);
+    
+    if (existingRole === null) {
+        res.status(404).json({ error: `Role with id ${role_id} does not exist. Cannot update user.`})
+        return;
+    }
+    
+    const updatedUser = await UserService.updateUserRole(body, role_id);
+
+    if (existingRole === null) {
+        res.status(404).json({ error: `Invalid User id. Cannot update user.`})
+        return;
+    }
+    
+    res.status(200).json(updatedRom);
+}
+
 export default {
     signup,
     validateSession,

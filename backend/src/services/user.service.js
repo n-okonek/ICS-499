@@ -105,10 +105,26 @@ const login = async body => {
     
 }
 
+const getAllUsers = async() => {
+    return await user.findAll();
+}
+
+const updateUserRole = async(user_id, newRoleId) => {
+    const userToUpdate = await user.findByPk(user_id);
+
+    if(userToUpdate === null) return null;
+
+    userToUpdate.role_id = newRoleId;
+    await userToUpdate.save();
+    return userToUpdate;
+}
+
 export default {
     signup,
     login,
     getUserByEmail,
     getUserBySession,
     existingAccount,
+    getAllUsers,
+    updateUserRole
 }
