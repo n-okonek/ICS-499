@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import OuterScreenView from './views/pages/home/OuterScreenView';
 import Login from './views/pages/login/Login';
 import CreateAccount from './views/pages/createAccount/CreateAccount';
-import Library from './views/pages/user/Library'
+import Library from './views/pages/user/Library';
+import Profile from './views/pages/user/Profile';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/create-account" component={CreateAccount} />
         <Route path="/library" component={Library} />
+        <Route path="/profile" component={Profile} />
       </div>
     </Router>
   );

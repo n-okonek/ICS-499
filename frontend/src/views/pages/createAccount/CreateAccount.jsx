@@ -22,7 +22,7 @@ export default function CreateAccount() {
 
   function submitForm(validated) {
     if (validated) {
-      Axios.post("http://localhost:9001/signup", {
+      Axios.post("http://localhost:9001/user/signup", {
         email: inputs.email,
         password: inputs.password
       }).then(() => {

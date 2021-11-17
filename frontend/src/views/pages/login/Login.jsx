@@ -19,7 +19,7 @@ export default function Login() {
 
   function submitForm(validated) {
     if (validated) {
-      Axios.post("http://localhost:9001/login", {
+      Axios.post("http://localhost:9001/user/login", {
         email: inputs.email,
         password: inputs.password
       }).then(() => {
