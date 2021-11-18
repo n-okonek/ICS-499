@@ -5,13 +5,14 @@ export default function(sequelize, DataTypes) {
     });
     
     user_rom.associate = models => {
+        user_rom.belongsTo(models.rom, {
+            foreignKey: "romid"
+        });
+        
         user_rom.belongsTo(models.user, {
             foreignKey: "userid"
         });
 
-        user_rom.belongsTo(models.rom, {
-            foreignKey: "romid"
-        });
     }
     
     user_rom.removeAttribute('id');

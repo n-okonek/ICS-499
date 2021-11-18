@@ -1,4 +1,5 @@
 import RomService from '../services/rom.service.js';
+import UserService from '../services/user.service.js';
 import { validationResult } from 'express-validator';
 
 const listRoms = async(req, res, next) => {
@@ -75,12 +76,24 @@ const updateRom = async(req, res, next) => {
 const associateRomToUser = async(req, res, next) => {
     const {romid, userid} = req.params; 
     
+    const rom = await RomService.getRomById(romid);
+    const user = await UserService.getUserById(userid);
+    
+    if (!rom) {
+        res.status(403).json({ message: `No rom with id ${romid} exists`});
+        return;
+    }
+
+    if (!user) {
+        res.status(403).json({ message: `No user with id ${userid} exists`});
+        return;
+    }
+    
     try {
         const association = await RomService.associateRom(romid, userid);
         res.status(200).json(association);
         return;
     } catch (error) {
-        console.error(error);
         if ('name' in error && error.name === 'SequelizeUniqueConstraintError') {
             res.status(403).json({ message: 'Association already exists.'});
         } else {

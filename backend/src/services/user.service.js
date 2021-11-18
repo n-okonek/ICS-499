@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 import db from '../config/db.js';
-const { user, session } = db;
+const { user, session, user_rom, rom } = db;
 
 
 const getUserByEmail = async email => {
@@ -10,6 +10,10 @@ const getUserByEmail = async email => {
             email: email
         }
     })
+}
+
+const getUserById = async id => {
+    return await user.findByPk(id);
 }
 
 const getUserBySession = async sessionCookie => {
@@ -119,12 +123,23 @@ const updateUserRole = async(user_id, newRoleId) => {
     return userToUpdate;
 }
 
+const getUserRoms = async(userid) => {
+    return await user_rom.findAll({
+        where: {
+            userid: userid
+        },
+        include: [db.rom]
+    });
+}
+
 export default {
     signup,
     login,
     getUserByEmail,
+    getUserById,
     getUserBySession,
     existingAccount,
     getAllUsers,
-    updateUserRole
+    updateUserRole,
+    getUserRoms
 }
