@@ -108,5 +108,7 @@ export default {
     signup,
     validateSession,
     getInfo,
-    login
+    login,
+    updateUserRole,
+    getAllUsers
 }
