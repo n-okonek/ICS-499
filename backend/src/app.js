@@ -5,7 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import UserController from './controllers/user.controller.js';
 //Routers
-import RomRouter from './routes/rom.route.js/index.js';
+import RomRouter from './routes/rom.route.js';
 import UserRouter from './routes/user.route.js';
 
 const app = express();
