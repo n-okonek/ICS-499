@@ -1,6 +1,6 @@
 import db from '../config/db.js';
 
-const { rom } = db;
+const { rom, user_rom } = db;
 
 const getAllRoms = async() => {
     return await rom.findAll();
@@ -37,10 +37,18 @@ const updateRom = async(romid, newBodyValues) => {
     return fetched_rom;
 }
 
+const associateRom = async(romid, userid) => {
+    return await user_rom.create({
+        userid: userid,
+        romid: romid 
+    });
+}
+
 export default {
     getAllRoms,
     getRomById,
     createRom,
     deleteRom,
-    updateRom
+    updateRom,
+    associateRom
 }

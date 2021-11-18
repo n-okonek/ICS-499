@@ -72,10 +72,30 @@ const updateRom = async(req, res, next) => {
     
 }
 
+const associateRomToUser = async(req, res, next) => {
+    const {romid, userid} = req.params; 
+    
+    try {
+        const association = await RomService.associateRom(romid, userid);
+        res.status(200).json(association);
+        return;
+    } catch (error) {
+        console.error(error);
+        if ('name' in error && error.name === 'SequelizeUniqueConstraintError') {
+            res.status(403).json({ message: 'Association already exists.'});
+        } else {
+            res.status(500).json({ message: 'Unable to create association.'})
+        }
+        return;
+    }
+    
+}
+
 export default {
     listRoms,
     getRomById,
     createRom,
     deleteRomById,
-    updateRom
+    updateRom,
+    associateRomToUser
 }
