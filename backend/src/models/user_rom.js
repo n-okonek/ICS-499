@@ -1,19 +1,20 @@
 export default function(sequelize, DataTypes) {
     const user_rom = sequelize.define('user_rom', {
-        user_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            allowNull: false
-        },
-        romid: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            allowNull: false
-        }
-
     }, {
         tableName: 'user_rom'
     });
+    
+    user_rom.associate = models => {
+        user_rom.belongsTo(models.user, {
+            foreignKey: "userid"
+        });
+
+        user_rom.belongsTo(models.rom, {
+            foreignKey: "romid"
+        });
+    }
+    
+    user_rom.removeAttribute('id');
     
     return user_rom;
 }
