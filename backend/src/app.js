@@ -1,6 +1,7 @@
 import './config/environment.js';
 import express from 'express';
 import logger from 'morgan'
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import UserController from './controllers/user.controller.js';
 //Routers
@@ -10,6 +11,7 @@ import UserRouter from './routes/user.route.js';
 const app = express();
 
 //app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
