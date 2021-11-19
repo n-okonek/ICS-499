@@ -22,18 +22,18 @@ function Header() {
             <Nav.Link>Sign Out</Nav.Link>
           </LinkContainer>
           <NavDropdown title="My Account">
-            <LinkContainer to="/profile">
+            <LinkContainer to="/user/profile">
               <NavDropdown.Item>Profile</NavDropdown.Item>
             </LinkContainer>
-            <LinkContainer to="/library">
+            <LinkContainer to="/user/library">
               <NavDropdown.Item>My Library</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>
           <NavDropdown title="Admin">
-            <LinkContainer to="/user-management">
+            <LinkContainer to="/admin/user-management">
               <NavDropdown.Item>User management</NavDropdown.Item>
             </LinkContainer>
-            <LinkContainer to="/rom-management">
+            <LinkContainer to="/admin/rom-management">
               <NavDropdown.Item>Rom Management</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>
