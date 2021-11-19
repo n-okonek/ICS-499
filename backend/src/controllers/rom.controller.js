@@ -74,23 +74,22 @@ const updateRom = async(req, res, next) => {
 }
 
 const associateRomToUser = async(req, res, next) => {
-    const {romid, userid} = req.params; 
+    const {romid} = req.params; 
     
     const rom = await RomService.getRomById(romid);
-    const user = await UserService.getUserById(userid);
     
     if (!rom) {
         res.status(403).json({ message: `No rom with id ${romid} exists`});
         return;
     }
 
-    if (!user) {
-        res.status(403).json({ message: `No user with id ${userid} exists`});
+    if (!req.user) {
+        res.status(403).json({ message: `No user logged in`});
         return;
     }
     
     try {
-        const association = await RomService.associateRom(romid, userid);
+        const association = await RomService.associateRom(romid, req.user.user_id);
         res.status(200).json(association);
         return;
     } catch (error) {
