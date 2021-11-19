@@ -8,6 +8,7 @@ import CreateAccount from './views/pages/createAccount/CreateAccount';
 import Library from './views/pages/user/Library';
 import Profile from './views/pages/user/Profile';
 import UserManagement from './views/pages/admin/UserManagement';
+import RomManagement from './views/pages/admin/RomManagement';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/user/library" component={Library} />
         <Route path="/user/profile" component={Profile} />
         <Route path="/admin/user-management" component={UserManagement} />
+        <Route path="/admin/rom-management" component={RomManagement} />
       </div>
     </Router>
   );
