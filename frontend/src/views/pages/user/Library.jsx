@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <Layout>
       <div className="grid-container">
-        <Table striped bordered hover>
+        <Table striped hover>
           <thead>
             <tr>
               <th>Rom Name</th>

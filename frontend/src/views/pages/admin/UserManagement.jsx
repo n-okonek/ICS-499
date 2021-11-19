@@ -49,7 +49,7 @@ export default function UserManagement() {
   return (
     <FullLayout>
       <div className="grid-container">
-        <Table>
+        <Table striped hover>
           <thead>
             <tr>
               <th>User ID</th>
