@@ -105,9 +105,7 @@ const updateUserRole = async(req, res, next) => {
 }
 
 const getUserRoms = async(req, res, next) => {
-    const { userid } = req.params;
-    
-    const roms = await UserService.getUserRoms(userid);
+    const roms = await UserService.getUserRoms(req.user.user_id);
     
     res.status(200).json(roms);
 }

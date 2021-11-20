@@ -10,6 +10,6 @@ router.get('/:romid', RomController.getRomById);
 router.post('/', RomValidator.createRom, RomController.createRom);
 router.delete('/:romid', RomController.deleteRomById);
 router.put('/:romid', RomController.updateRom);
-router.post('/associate/:romid/:userid', RomController.associateRomToUser);
+router.post('/associate/:romid', RomController.associateRomToUser);
 
 export default router;
