@@ -6,10 +6,14 @@ import ChangePassword from '../../../components/modals/ChangePassword';
 
 export default function Profile() {
 
-  const [user, setUserInfo] = useState({
-    email: "nickokonek@gmail.com",
-    pass: "12345"
-  });
+  function getLoginInfo() {
+    return {
+      email: "user@example.com",
+      pass: "scrumlord"
+    }
+  }
+
+  const [user, setUserInfo] = useState(getLoginInfo());
 
   // setUserInfo((props) => {
   //   let passLength = "";
