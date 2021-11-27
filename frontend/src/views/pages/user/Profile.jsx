@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../layout';
 import { FloatingLabel, Form, Modal, Row, Col, Button, Container } from 'react-bootstrap';
 import ChangeEmail from '../../../components/modals/ChangeEmail';
 import ChangePassword from '../../../components/modals/ChangePassword';
+import Axios from 'axios';
 
 export default function Profile() {
 
-  function getLoginInfo() {
-    return {
+  const [user, setUserInfo] = useState({
       email: "user@example.com",
-      pass: "scrumlord"
-    }
+      pass: "********"
+  });
+
+  function updateUserInfo() {
+    Axios.get('http://localhost:9001/user/info')
+    .then((res) => {
+      let userEmail;
+      if (res.data.email) {
+          userEmail = res.data.email;
+      } else {
+          userEmail = res.data.message;
+      }
+      setUserInfo({
+        email: userEmail,
+        password: "********",
+      });
+    });
   }
-
-  const [user, setUserInfo] = useState(getLoginInfo());
-
+  useEffect(updateUserInfo, [user]);
   // setUserInfo((props) => {
   //   let passLength = "";
   //   let length = props.pass.length;
