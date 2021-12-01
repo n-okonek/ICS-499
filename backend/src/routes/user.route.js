@@ -10,5 +10,6 @@ router.get('/info', UserController.getInfo);
 router.get('/', UserController.getAllUsers);
 router.get('/roms', UserController.getUserRoms);
 router.put('/:role_id', UserController.updateUserRole);
+router.post('/change-password', UserController.changePassword);
 
 export default router;
