@@ -39,26 +39,26 @@ export default function Profile() {
 
   function handleShow(modal) {
     if (modal === "e") {
-      //<ChangeEmail show={true} />
+      <ChangeEmail show={true} />
     } else if (modal === "p") {
-      //<ChangePassword show={true} />
+      <ChangePassword show={true} />
     }
   }
 
   function changeEmail() {
-    // Axios.post("http://localhost:9001/user/change-email", {
-    //   email: tempUserInfo.email
-    // }).then(() => {
-    //   alert("Email successfully changed")
-    // });
+    Axios.post("http://localhost:9001/user/change-email", {
+      email: tempUserInfo.email
+    }).then(() => {
+      alert("Email successfully changed")
+    });
   }
 
   function changePassword() {
-    // Axios.post("http://localhost:9001/user/change-password", {
-    //   email: tempUserInfo.email
-    // }).then(() => {
-    //   alert("Email successfully changed")
-    // });
+    Axios.post("http://localhost:9001/user/change-password", {
+      password: tempUserInfo.password
+    }).then(() => {
+      alert("Password successfully changed")
+    });
   }
 
   return (
