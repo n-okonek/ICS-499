@@ -36,6 +36,6 @@ function ChangePassword() {
   )
 }
 
-export default {
+export {
   ChangePassword
 }

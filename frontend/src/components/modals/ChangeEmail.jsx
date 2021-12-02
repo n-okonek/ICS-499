@@ -39,6 +39,6 @@ function ChangeEmail() {
   )
 }
 
-export default {
-  ChangeEmail
+export {
+    ChangeEmail
 }

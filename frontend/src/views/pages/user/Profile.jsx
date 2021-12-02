@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../layout';
 import { FloatingLabel, Form, Modal, Row, Col, Button, Container } from 'react-bootstrap';
-import ChangeEmail from '../../../components/modals/ChangeEmail';
-import ChangePassword from '../../../components/modals/ChangePassword';
+import { ChangeEmail } from '../../../components/modals/ChangeEmail';
+import { ChangePassword } from '../../../components/modals/ChangePassword';
 import Axios from 'axios';
 
 export default function Profile() {
