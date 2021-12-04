@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../layout';
 import { FloatingLabel, Form, Modal, Row, Col, Button, Container } from 'react-bootstrap';
-import ChangeEmail from '../../../components/modals/ChangeEmail';
-import ChangePassword from '../../../components/modals/ChangePassword';
+import { ChangeEmail } from '../../../components/modals/ChangeEmail';
+import { ChangePassword } from '../../../components/modals/ChangePassword';
 import Axios from 'axios';
 
 export default function Profile() {
@@ -39,26 +39,26 @@ export default function Profile() {
 
   function handleShow(modal) {
     if (modal === "e") {
-      //<ChangeEmail show={true} />
+      <ChangeEmail show={true} />
     } else if (modal === "p") {
-      //<ChangePassword show={true} />
+      <ChangePassword show={true} />
     }
   }
 
   function changeEmail() {
-    // Axios.post("http://localhost:9001/user/change-email", {
-    //   email: tempUserInfo.email
-    // }).then(() => {
-    //   alert("Email successfully changed")
-    // });
+    Axios.post("http://localhost:9001/user/change-email", {
+      email: tempUserInfo.email
+    }).then(() => {
+      alert("Email successfully changed")
+    });
   }
 
   function changePassword() {
-    // Axios.post("http://localhost:9001/user/change-password", {
-    //   email: tempUserInfo.email
-    // }).then(() => {
-    //   alert("Email successfully changed")
-    // });
+    Axios.post("http://localhost:9001/user/change-password", {
+      password: tempUserInfo.password
+    }).then(() => {
+      alert("Password successfully changed")
+    });
   }
 
   return (
@@ -71,7 +71,7 @@ export default function Profile() {
           </Col>
           <Col sm={4}>
             <Row>
-              <Button onClick={handleShow("e")}>
+              <Button onClick={() => handleShow("e")}>
                 Change Email
               </Button>
             </Row>
@@ -84,7 +84,7 @@ export default function Profile() {
           </Col>
           <Col sm={4}>
             <Row>
-              <Button onClick={handleShow("p")}>
+              <Button onClick={() => handleShow("p")}>
                 Change Password
               </Button>
             </Row>

@@ -110,6 +110,39 @@ const getUserRoms = async(req, res, next) => {
     res.status(200).json(roms);
 }
 
+const changeEmail = async(req, res, next) => {
+    if (!req.user) {
+        return res.status(403).json({
+            message: "no user logged in"
+        });
+    }
+
+    if (!req.body.email) {
+         return res.status(400).json({
+            message: "no email was provided"
+        });
+    }
+    req.user.email = req.body.email;
+    await req.user.save();
+}
+
+const changePassword = async(req, res, next) => {
+    if (!req.user) {
+        return res.status(403).json({
+            message: "no user logged in"
+        });
+    }
+
+    if (!req.body.password) {
+         return res.status(400).json({
+            message: "no password was provided"
+        });
+    }
+    req.user.password = req.body.password;
+    await req.user.save();
+}
+
+
 export default {
     signup,
     validateSession,
@@ -117,5 +150,7 @@ export default {
     login,
     updateUserRole,
     getAllUsers,
+    changePassword,
+    changeEmail,
     getUserRoms
 }

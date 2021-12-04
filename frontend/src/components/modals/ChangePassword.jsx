@@ -30,12 +30,12 @@ function ChangePassword() {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={changePassword} />
+        <Button onClick={() => changePassword} />
       </Modal.Footer>
     </Modal>
   )
 }
 
-export default {
+export {
   ChangePassword
 }
