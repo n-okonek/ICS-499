@@ -10,8 +10,14 @@ import UserRouter from './routes/user.route.js';
 
 const app = express();
 
+const corsOptions = {
+	origin: 'http://localhost:8080',
+	credentials: true,
+	optionsSuccessStatus: 200
+}
+
 //app.use(logger('dev'));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
