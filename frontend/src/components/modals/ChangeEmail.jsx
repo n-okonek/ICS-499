@@ -33,7 +33,7 @@ function ChangeEmail() {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={changeEmail} />
+        <Button onClick={() => changeEmail} />
       </Modal.Footer>
     </Modal>
   )
