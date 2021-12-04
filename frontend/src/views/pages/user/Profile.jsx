@@ -13,7 +13,7 @@ export default function Profile() {
   });
 
   function updateUserInfo() {
-    Axios.get('http://localhost:9001/user/info')
+    Axios.get('http://localhost:9001/user/info', {withCredentials: true})
     .then((res) => {
       let userEmail;
       if (res.data.email) {
