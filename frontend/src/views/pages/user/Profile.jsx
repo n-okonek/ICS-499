@@ -71,7 +71,7 @@ export default function Profile() {
           </Col>
           <Col sm={4}>
             <Row>
-              <Button onClick={handleShow("e")}>
+              <Button onClick={() => handleShow("e")}>
                 Change Email
               </Button>
             </Row>
@@ -84,7 +84,7 @@ export default function Profile() {
           </Col>
           <Col sm={4}>
             <Row>
-              <Button onClick={handleShow("p")}>
+              <Button onClick={() => handleShow("p")}>
                 Change Password
               </Button>
             </Row>
