@@ -27,7 +27,7 @@ export default function Profile() {
       });
     });
   }
-  useEffect(updateUserInfo, [user]);
+  useEffect(updateUserInfo, []);
   // setUserInfo((props) => {
   //   let passLength = "";
   //   let length = props.pass.length;
