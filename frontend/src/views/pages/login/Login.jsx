@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 
 export default function Login() {
-  const [validated, setValidated] = useState(false);
   const [inputs, setInputs] = useState({});
   const history = useHistory();
 
@@ -17,28 +16,21 @@ export default function Login() {
     setInputs(values => ({ ...values, [name]: value }));
   }
 
-  function submitForm(validated) {
-    if (validated) {
-      Axios.post("http://localhost:9001/user/login", {
-        email: inputs.email,
-        password: inputs.password
-      }, { withCredentials: true }).then(() => {
-        let path = '/user/profile';
-        history.push(path);
-      });
-    }
+  function submitForm() {
+    Axios.post("http://localhost:9001/user/login", {
+      email: inputs.email,
+      password: inputs.password
+    }, { withCredentials: true }).then(() => {
+      let path = '/user/profile';
+      history.push(path);
+    });
   }
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
     event.preventDefault();
 
-    setValidated(true);
-    submitForm(validated);
+    submitForm();
   };
 
   const createAccount = () => {
@@ -49,7 +41,7 @@ export default function Login() {
   return (
     <Layout>
       <div className="form-container">
-        <Form validated={validated} onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Form.Group>
             <FloatingLabel controlId="floatingInput" label="Email Adress" className="mb-3">
               <Form.Control name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
