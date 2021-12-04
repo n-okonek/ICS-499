@@ -22,8 +22,8 @@ export default function Login() {
       Axios.post("http://localhost:9001/user/login", {
         email: inputs.email,
         password: inputs.password
-      }).then(() => {
-        let path = '/profile';
+      }, { withCredentials: true }).then(() => {
+        let path = '/user/profile';
         history.push(path);
       });
     }

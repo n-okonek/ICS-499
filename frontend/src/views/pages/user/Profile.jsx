@@ -13,7 +13,7 @@ export default function Profile() {
   });
 
   function updateUserInfo() {
-    Axios.get('http://localhost:9001/user/info')
+    Axios.get('http://localhost:9001/user/info', {withCredentials: true})
     .then((res) => {
       let userEmail;
       if (res.data.email) {
@@ -48,7 +48,7 @@ export default function Profile() {
   function changeEmail() {
     Axios.post("http://localhost:9001/user/change-email", {
       email: tempUserInfo.email
-    }).then(() => {
+    }, { withCredentials: true }).then(() => {
       alert("Email successfully changed")
     });
   }
@@ -56,7 +56,7 @@ export default function Profile() {
   function changePassword() {
     Axios.post("http://localhost:9001/user/change-password", {
       password: tempUserInfo.password
-    }).then(() => {
+    }, { withCredentials: true }).then(() => {
       alert("Password successfully changed")
     });
   }
