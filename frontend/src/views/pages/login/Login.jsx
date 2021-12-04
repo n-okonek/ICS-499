@@ -23,7 +23,7 @@ export default function Login() {
         email: inputs.email,
         password: inputs.password
       }).then(() => {
-        let path = '/profile';
+        let path = '/user/profile';
         history.push(path);
       });
     }
