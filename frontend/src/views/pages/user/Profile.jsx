@@ -9,7 +9,7 @@ export default function Profile() {
 
   const [user, setUserInfo] = useState({
       email: "user@example.com",
-      pass: "********"
+      password: "********"
   });
 
   function updateUserInfo() {
@@ -80,7 +80,7 @@ export default function Profile() {
         <Row>
           <Col sm={8}>
             <Row className="profile-label">Password</Row>
-            <Row className="profile-data">{user.obPass}</Row>
+            <Row className="profile-data">{user.password}</Row>
           </Col>
           <Col sm={4}>
             <Row>
