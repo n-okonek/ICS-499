@@ -5,9 +5,10 @@ export const userSlice = createSlice({
   initialState: {
     email: "",
     password: "********",
-    roms: {
-      0: { name: "", rom: "", date: "" }
-    }
+    roms: [
+      { name: "sample1", rom: "sample1", date: "" },
+      { name: "sample2", rom: "sample2", date: "" }
+    ]
 
   },
   reducers: {
