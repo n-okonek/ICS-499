@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { setLoginState, setUserRole, setInputs } from '../../../redux/loginSlice';
+import { setLoginState, setInputs } from '../../../redux/loginSlice';
 
 import Axios from 'axios';
 
