@@ -1,41 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Axios from 'axios';
+
+import { setEmail } from '../../../redux/userSlice';
+
 import Layout from '../layout';
-import { FloatingLabel, Form, Modal, Row, Col, Button, Container } from 'react-bootstrap';
+import { Row, Col, Button, Container } from 'react-bootstrap';
 import { ChangeEmail } from '../../../components/modals/ChangeEmail';
 import { ChangePassword } from '../../../components/modals/ChangePassword';
-import Axios from 'axios';
 
 export default function Profile() {
 
-  const [user, setUserInfo] = useState({
-      email: "user@example.com",
-      password: "********"
-  });
+  const userEmail = useSelector((state) => state.user.email);
+  const userPass = useSelector((state) => state.user.password);
+  const dispatch = useDispatch();
 
   function updateUserInfo() {
-    Axios.get('http://localhost:9001/user/info', {withCredentials: true})
-    .then((res) => {
-      let userEmail;
-      if (res.data.email) {
-          userEmail = res.data.email;
-      } else {
-          userEmail = res.data.message;
-      }
-      setUserInfo({
-        email: userEmail,
-        password: "********",
+    Axios.get('http://localhost:9001/user/info', { withCredentials: true })
+      .then((res) => {
+        if (res.data.email) {
+          dispatch(setEmail(res.data.email));
+        } else {
+          dispatch(setEmail(res.data.message));
+        }
       });
-    });
   }
   useEffect(updateUserInfo, []);
-  // setUserInfo((props) => {
-  //   let passLength = "";
-  //   let length = props.pass.length;
-  //   for (let i = 1; i < props.pass.length; i++) {
-  //     passLength += "*";
-  //   }
-  //   return { obPass: passLength };
-  // });
 
   function handleShow(modal) {
     if (modal === "e") {
@@ -67,7 +57,7 @@ export default function Profile() {
         <Row>
           <Col sm={8}>
             <Row className="profile-label">Email Address</Row>
-            <Row className="profile-data">{user.email}</Row>
+            <Row className="profile-data">{userEmail}</Row>
           </Col>
           <Col sm={4}>
             <Row>
@@ -80,7 +70,7 @@ export default function Profile() {
         <Row>
           <Col sm={8}>
             <Row className="profile-label">Password</Row>
-            <Row className="profile-data">{user.password}</Row>
+            <Row className="profile-data">{userPass}</Row>
           </Col>
           <Col sm={4}>
             <Row>

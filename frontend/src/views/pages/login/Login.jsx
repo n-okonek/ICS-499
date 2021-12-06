@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import { setLoginState, setInputs } from '../../../redux/loginSlice';
+
+import Axios from 'axios';
+
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Layout from '../layout';
-import { useHistory } from 'react-router-dom';
-import Axios from 'axios';
+
 
 export default function Login() {
-  const [inputs, setInputs] = useState({});
+  const inputs = useSelector((state) => state.login.inputs);
+  const loggedIn = useSelector((state) => state.login.loggedIn);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({ ...values, [name]: value }));
+    dispatch(setInputs({ ...inputs, [event.target.name]: event.target.value }));
   }
 
   function submitForm() {
@@ -21,6 +27,9 @@ export default function Login() {
       email: inputs.email,
       password: inputs.password
     }, { withCredentials: true }).then(() => {
+      dispatch(setInputs({ ...inputs, password: "" }))
+      dispatch(setLoginState(true));
+
       let path = '/user/profile';
       history.push(path);
     });
@@ -29,7 +38,6 @@ export default function Login() {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
-
     submitForm();
   };
 
@@ -62,4 +70,12 @@ export default function Login() {
       </div>
     </Layout>
   );
+}
+
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.loggedIn,
+    inputs: state.inputs,
+    userRole: state.userRole
+  }
 }

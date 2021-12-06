@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
-import { ListGroup, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import Layout from '../layout';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setRoms } from '../../../redux/userSlice';
+
 export default function Login() {
-  //TODO: remove item1 and 2 when connected to backend replace array with object in list
-  const item1 = {
-    name: "mario",
-    rom: "mario.nes",
-    date: "11/2/2021"
-  };
+  const roms = useSelector((state) => state.user.roms);
 
-  const item2 = {
-    name: "contra",
-    rom: "contra.nes",
-    date: "11/4/2020"
-  };
-
-  const list = [item1, item2].map((item, idx) => (
+  const list = roms.map((item, idx) => (
     <tr key={idx}>
       <td>{item.name}</td>
       <td>{item.rom}</td>
