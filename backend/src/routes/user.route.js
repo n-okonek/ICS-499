@@ -9,7 +9,7 @@ router.post('/login', UserValidator.login, UserController.login);
 router.get('/info', UserController.getInfo);
 router.get('/', UserController.getAllUsers);
 router.get('/roms', UserController.getUserRoms);
-router.put('/:role_id', UserController.updateUserRole);
+router.post('/change-role', UserController.updateUserRole);
 router.post('/change-email', UserController.changeEmail);
 router.post('/change-password', UserController.changePassword);
 

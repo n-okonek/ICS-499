@@ -8,10 +8,6 @@ export default function(sequelize, DataTypes) {
         title: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        created: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW
         }
     }, {
         tableName: 'role'

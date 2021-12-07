@@ -25,7 +25,8 @@ export default function CreateAccount() {
     if (validated) {
       Axios.post(apiURL + "/user/signup", {
         email: inputs.email,
-        password: inputs.password
+        password: inputs.password,
+        title: "User"
       }).then(() => {
         alert("Account successfully created.")
       });

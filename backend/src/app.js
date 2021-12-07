@@ -7,6 +7,7 @@ import UserController from './controllers/user.controller.js';
 //Routers
 import RomRouter from './routes/rom.route.js';
 import UserRouter from './routes/user.route.js';
+import RoleRouter from './routes/role.route.js';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(UserController.validateSession);
 // Add routes to express instance
 app.use('/rom', RomRouter);
 app.use('/user', UserRouter);
+app.use('/role', RoleRouter);
 
 // 404. This should always be the last route.
 app.use((req, res, next) => {

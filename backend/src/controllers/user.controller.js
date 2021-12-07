@@ -1,4 +1,5 @@
 import UserService from '../services/user.service.js';
+import RoleService from '../services/role.service.js';
 import { validationResult } from 'express-validator';
 
 const signup = async (req, res, next) => {
@@ -18,6 +19,10 @@ const signup = async (req, res, next) => {
 
     if (user === null) {
         return res.status(422).json({ error: "User signup failed." });
+    }
+    const userRole = await RoleService.getRoleByTitle(body.title);
+    if(userRole !== null){
+        await UserService.updateUserRole(user.user_id, userRole.role_id);
     }
 
     return res.status(200).send();
@@ -81,28 +86,23 @@ const getAllUsers = async (req, res, next) => {
 }
 
 const updateUserRole = async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() })
-    }
-    const { role_id } = req.params;
     const { body } = req;
 
-    const existingRole = await RoleService.getRoleById(role_id);
+    const existingRole = await RoleService.getRoleByTitle(body.title);
 
-    if (existingRole === null) {
-        res.status(404).json({ error: `Role with id ${ role_id } does not exist. Cannot update user.` })
+    if (existingRole === null ) {
+        res.status(404).json({ error: `Role with title ${ body.title } does not exist. Cannot update user.` })
         return;
     }
 
-    const updatedUser = await UserService.updateUserRole(body, role_id);
+    const updatedUser = await UserService.updateUserRole(body.user_id, existingRole.role_id);
 
-    if (existingRole === null) {
+    if (updatedUser === null) {
         res.status(404).json({ error: `Invalid User id. Cannot update user.` })
         return;
     }
 
-    res.status(200).json(updatedRom);
+    res.status(200).json(updatedUser);
 }
 
 const getUserRoms = async (req, res, next) => {
