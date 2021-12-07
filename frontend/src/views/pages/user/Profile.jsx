@@ -16,7 +16,7 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   function updateUserInfo() {
-    Axios.get('http://localhost:9001/user/info', { withCredentials: true })
+    Axios.get(process.env.API_URL + '/user/info', { withCredentials: true })
       .then((res) => {
         if (res.data.email) {
           dispatch(setEmail(res.data.email));
@@ -36,7 +36,7 @@ export default function Profile() {
   }
 
   function changeEmail() {
-    Axios.post("http://localhost:9001/user/change-email", {
+    Axios.post(process.env.API_URL + "/user/change-email", {
       email: tempUserInfo.email
     }, { withCredentials: true }).then(() => {
       alert("Email successfully changed")
@@ -44,7 +44,7 @@ export default function Profile() {
   }
 
   function changePassword() {
-    Axios.post("http://localhost:9001/user/change-password", {
+    Axios.post(process.env.API_URL + "/user/change-password", {
       password: tempUserInfo.password
     }, { withCredentials: true }).then(() => {
       alert("Password successfully changed")
