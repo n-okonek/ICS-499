@@ -23,7 +23,7 @@ export default function Login() {
   }
 
   function submitForm() {
-    Axios.post("http://localhost:9001/user/login", {
+    Axios.post(process.env.API_URL + "/user/login", {
       email: inputs.email,
       password: inputs.password
     }, { withCredentials: true }).then(() => {

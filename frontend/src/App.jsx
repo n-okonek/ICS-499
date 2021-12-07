@@ -20,9 +20,9 @@ function App() {
       <div>
         <Route exact path="/" component={OuterScreenView} />
         <Route path="/login" component={Login} />
+        <Route path="/create-account" component={CreateAccount} />
         {loggedIn ? (
           <>
-            <Route path="/create-account" component={CreateAccount} />
             <Route path="/user/library" component={Library} />
             <Route path="/user/profile" component={Profile} />
             {loggedIn && userRole === "admin" ? (
@@ -38,7 +38,7 @@ function App() {
           <Redirect exact to="/login" component={Login} />
         )}
       </div>
-    </Router>
+    </Router >
   );
 }
 

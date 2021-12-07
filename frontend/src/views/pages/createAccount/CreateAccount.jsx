@@ -13,6 +13,7 @@ export default function CreateAccount() {
   const [validated, setValidated] = useState(false);
   const [inputs, setInput] = useState({});
   const history = useHistory();
+  const apiURL = process.env.API_URL;
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -22,7 +23,7 @@ export default function CreateAccount() {
 
   function submitForm(validated) {
     if (validated) {
-      Axios.post("http://localhost:9001/user/signup", {
+      Axios.post(apiURL + "/user/signup", {
         email: inputs.email,
         password: inputs.password
       }).then(() => {
