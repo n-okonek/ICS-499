@@ -4,7 +4,7 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState: {
     loggedIn: false,
-    userRole: "",
+    userRole: 1,
     inputs: {
       email: "",
       password: "",

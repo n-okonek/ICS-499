@@ -39,7 +39,7 @@ function Header() {
                   <NavDropdown.Item>My Library</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
-              {userRole === "admin" ? (
+              {userRole === 2 ? (
                 <NavDropdown title="Admin">
                   <LinkContainer to="/admin/user-management">
                     <NavDropdown.Item>User management</NavDropdown.Item>

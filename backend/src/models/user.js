@@ -1,4 +1,4 @@
-export default function(sequelize, DataTypes) {
+export default function (sequelize, DataTypes) {
     const user = sequelize.define('user', {
         user_id: {
             type: DataTypes.INTEGER,
@@ -11,7 +11,8 @@ export default function(sequelize, DataTypes) {
             references: {
                 model: 'role',
                 key: 'role_id'
-            }
+            },
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,

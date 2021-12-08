@@ -8,8 +8,8 @@ export const userSlice = createSlice({
     roms: [
       { name: "sample1", rom: "sample1", date: "" },
       { name: "sample2", rom: "sample2", date: "" }
-    ]
-
+    ],
+    role: 0,
   },
   reducers: {
     setEmail: (state, action) => {
@@ -17,6 +17,9 @@ export const userSlice = createSlice({
     },
     setRoms: (state, action) => {
       state.roms = action.payload
+    },
+    setUserRole: (state, action) => {
+      state.role = action.payload
     }
   },
 })
