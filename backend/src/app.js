@@ -2,6 +2,7 @@ import './config/environment.js';
 import express from 'express';
 import logger from 'morgan'
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import UserController from './controllers/user.controller.js';
 //Routers
@@ -19,11 +20,11 @@ const corsOptions = {
 
 //app.use(logger('dev'));
 app.use(cors(corsOptions));
-app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
 app.use(cookieParser());
+app.use(bodyParser.json({limit: '5mb'}));
 
 // Always 'req.user' to the currently logged in user.
 app.use(UserController.validateSession);
