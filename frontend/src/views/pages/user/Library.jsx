@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Layout from '../layout';
+import Axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoms } from '../../../redux/userSlice';
@@ -32,7 +33,11 @@ export default function Login() {
     const reader = new FileReader();
     reader.onload = (readEvent) => {
       const binary = readEvent.target.result;
-      console.info("Read in file: ", selectedFile);
+      Axios.post(process.env.API_URL + '/rom/', { name: selectedFile.name,
+        romdata: binary }, { withCredentials: true })
+        .then((res) => {
+            alert(selectedFile.name + " successfully uploaded.");
+        });
     };
 
     reader.readAsBinaryString(selectedFile);
