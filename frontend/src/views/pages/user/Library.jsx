@@ -32,7 +32,12 @@ export default function Login() {
   };
 
   const deleteRom = (romid) => {
-    console.log("aww...", romid);
+    Axios.delete(process.env.API_URL + '/rom/' + romid,
+      { withCredentials: true } )
+    .then(() => {
+        console.log("deleted ROM ", romid);
+        setRomsFromServer();
+    });
   };
 
   const list = roms.map((item, idx) => (
