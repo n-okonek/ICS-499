@@ -20,6 +20,13 @@ const deleteRom = async romid => {
     
     if (fetched_rom === null) return null;
 
+    // Disassociate the ROM from the user before deleting.
+    await user_rom.destroy({
+        where: {
+            romid: romid
+        }
+    });
+
     return await fetched_rom.destroy({
         where: {
             romid: romid 
