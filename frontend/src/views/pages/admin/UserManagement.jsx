@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullLayout from '../FullLayout';
 import { Table, Button } from "react-bootstrap";
+import Axios from 'axios';
+import { useSelector } from 'react-redux';
+
+import { setUsers } from '../../../redux/adminSlice';
 
 export default function UserManagement() {
-  //TODO: replace item1 and item2 with API strings
-  const item1 = {
-    id: 1,
-    role: "user",
-    email: "joeblow@nunya.com",
-    registered: "11/17/2000",
-    login: "11/18/2021 11:57am"
-  }
+  const users = useSelector((state) => state.admin.users)
 
-  const item2 = {
-    id: 2,
-    role: "admin",
-    email: "nickokonek@gmail.com",
-    registered: "11/17/2000",
-    login: "11/18/2021 11:57am"
+  function getUsers() {
+    Axios.get(process.env.API_URL + '/user', { withCredentials: true })
+      .then((res) => {
+        if (res.data) {
+          dispatch(setUsers(res.data));
+        } else {
+          dispatch(setUsers(res.data.message));
+        }
+      });
   }
+  useEffect(getUsers, []);
 
   function warnUser(id) {
 
@@ -33,7 +34,7 @@ export default function UserManagement() {
   }
 
 
-  const listUsers = [item1, item2].map((item, idx) => (
+  const listUsers = users.map((item, idx) => (
     <tr key={idx}>
       <td>{item.id}</td>
       <td>{item.role}</td>

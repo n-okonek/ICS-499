@@ -25,7 +25,7 @@ function App() {
           <>
             <Route path="/user/library" component={Library} />
             <Route path="/user/profile" component={Profile} />
-            {loggedIn && userRole === "admin" ? (
+            {userRole === 2 ? (
               <>
                 <Route path="/admin/user-management" component={UserManagement} />
                 <Route path="/admin/rom-management" component={RomManagement} />

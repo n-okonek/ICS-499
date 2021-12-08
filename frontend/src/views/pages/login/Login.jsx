@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { setLoginState, setInputs } from '../../../redux/loginSlice';
+import { setUserRole } from '../../../redux/loginSlice';
 
 import Axios from 'axios';
 
@@ -26,13 +27,22 @@ export default function Login() {
     Axios.post(process.env.API_URL + "/user/login", {
       email: inputs.email,
       password: inputs.password
-    }, { withCredentials: true }).then(() => {
-      dispatch(setInputs({ ...inputs, password: "" }))
-      dispatch(setLoginState(true));
+    }, { withCredentials: true })
+      .then(
+        Axios.get(process.env.API_URL + "/user/info", { withCredentials: true })
+          .then(
+            (res) => {
+              console.log("setting role to " + res.data.role);
+              dispatch(setUserRole(res.data.role))
 
-      let path = '/user/profile';
-      history.push(path);
-    });
+              dispatch(setInputs({ ...inputs, password: "" }))
+              dispatch(setLoginState(true));
+
+              let path = '/user/profile';
+              history.push(path);
+            }
+          )
+      )
   }
 
   const handleSubmit = (event) => {

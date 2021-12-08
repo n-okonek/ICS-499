@@ -26,9 +26,10 @@ export default function CreateAccount() {
       Axios.post(apiURL + "/user/signup", {
         email: inputs.email,
         password: inputs.password,
-        title: "User"
+        role_id: 1
       }).then(() => {
         alert("Account successfully created.")
+
       });
     }
   }
