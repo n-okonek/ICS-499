@@ -20,10 +20,6 @@ const signup = async (req, res, next) => {
     if (user === null) {
         return res.status(422).json({ error: "User signup failed." });
     }
-    const userRole = await RoleService.getRoleByTitle(body.title);
-    if(userRole !== null){
-        await UserService.updateUserRole(user.user_id, userRole.role_id);
-    }
 
     return res.status(200).send();
 }
@@ -90,7 +86,7 @@ const updateUserRole = async (req, res, next) => {
 
     const existingRole = await RoleService.getRoleByTitle(body.title);
 
-    if (existingRole === null ) {
+    if (existingRole === null) {
         res.status(404).json({ error: `Role with title ${ body.title } does not exist. Cannot update user.` })
         return;
     }
