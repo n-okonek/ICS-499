@@ -21,19 +21,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-        working-directory: ./backend
 
       - name: npm install
         run: |
+          cd ./backend
           npm install
-        working-directory: ./backend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
           path: .
-        working-directory: ./backend
 
   deploy:
     runs-on: ubuntu-latest
