@@ -22,11 +22,21 @@ export default function Login() {
   }
   useEffect(setRomsFromServer, [roms]);
 
+  const playRom = () => {
+    console.log("WOOOOOOOO!!!");
+  };
+
+  const deleteRom = () => {
+    console.log("aww...");
+  };
+
   const list = roms.map((item, idx) => (
     <tr key={idx}>
       <td>{item.name}</td>
       <td>{item.rom}</td>
       <td>{item.date}</td>
+      <td><Button onClick={() => {playRom();}}>Play</Button></td>
+      <td><Button onClick={() => {deleteRom();}}>Delete</Button></td>
     </tr>
   ));
 
@@ -68,6 +78,7 @@ export default function Login() {
               <th>Rom Name</th>
               <th>Rom File</th>
               <th>Last Save Date</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
