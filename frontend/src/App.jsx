@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import OuterScreenView from './views/pages/home/OuterScreenView';
 import Login from './views/pages/login/Login';
+import Logout from './views/pages/login/Logout';
 import CreateAccount from './views/pages/createAccount/CreateAccount';
 import Library from './views/pages/user/Library';
 import Profile from './views/pages/user/Profile';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/create-account" component={CreateAccount} />
         {loggedIn ? (
           <>
+            <Route path="/logout" component={Logout} />
             <Route path="/user/library" component={Library} />
             <Route path="/user/profile" component={Profile} />
             {userRole === 2 ? (
