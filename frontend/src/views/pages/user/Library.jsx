@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,11 +13,29 @@ export default function Login() {
 
   const [selectedFile, setSelectedFile] = useState();
 
+  // Fetch the ROMs from the server.
+  const setRomsFromServer = () => {
+    Axios.get(process.env.API_URL + '/user/roms', { withCredentials: true })
+    .then((res) => {
+      console.log(res.data);
+    });
+  }
+  useEffect(setRomsFromServer, [roms]);
+
+  const playRom = () => {
+    console.log("WOOOOOOOO!!!");
+  };
+
+  const deleteRom = () => {
+    console.log("aww...");
+  };
+
   const list = roms.map((item, idx) => (
     <tr key={idx}>
       <td>{item.name}</td>
       <td>{item.rom}</td>
-      <td>{item.date}</td>
+      <td><Button onClick={() => {playRom();}}>Play</Button></td>
+      <td><Button onClick={() => {deleteRom();}}>Delete</Button></td>
     </tr>
   ));
 
@@ -36,7 +54,12 @@ export default function Login() {
       Axios.post(process.env.API_URL + '/rom/', { name: selectedFile.name,
         romdata: binary }, { withCredentials: true })
         .then((res) => {
-            alert(selectedFile.name + " successfully uploaded.");
+          Axios.post(process.env.API_URL + '/rom/associate/' + res.data.romid,
+            null, { withCredentials: true })
+            .then((res) => {
+              ;
+            });
+          alert(selectedFile.name + " successfully uploaded.");
         });
     };
 
@@ -53,7 +76,7 @@ export default function Login() {
             <tr>
               <th>Rom Name</th>
               <th>Rom File</th>
-              <th>Last Save Date</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
