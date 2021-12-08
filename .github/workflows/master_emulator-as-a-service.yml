@@ -15,24 +15,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        working-directory: ./backend
 
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+        working-directory: ./backend
 
-      - name: npm install, build, and test
+      - name: npm install
         run: |
-          cd ./backend
           npm install
-          npm run build --if-present
-          npm run test --if-present
+        working-directory: ./backend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
           path: .
+        working-directory: ./backend
 
   deploy:
     runs-on: ubuntu-latest
