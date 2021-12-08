@@ -15,7 +15,7 @@ export default function Login() {
 
   // Fetch the ROMs from the server.
   const setRomsFromServer = () => {
-    Axios.get(process.env.API_URL + '/rom/', { withCredentials: true })
+    Axios.get(process.env.API_URL + '/user/roms', { withCredentials: true })
     .then((res) => {
       console.log(res.data);
     });
@@ -45,7 +45,12 @@ export default function Login() {
       Axios.post(process.env.API_URL + '/rom/', { name: selectedFile.name,
         romdata: binary }, { withCredentials: true })
         .then((res) => {
-            alert(selectedFile.name + " successfully uploaded.");
+          Axios.post(process.env.API_URL + '/rom/associate/' + res.data.romid,
+            null, { withCredentials: true })
+            .then((res) => {
+              ;
+            });
+          alert(selectedFile.name + " successfully uploaded.");
         });
     };
 
