@@ -13,29 +13,33 @@ export default function Login() {
 
   const [selectedFile, setSelectedFile] = useState();
 
+  const dispatch = useDispatch();
+
   // Fetch the ROMs from the server.
   const setRomsFromServer = () => {
     Axios.get(process.env.API_URL + '/user/roms', { withCredentials: true })
     .then((res) => {
-      console.log(res.data);
+      const romsFormatted = res.data.map((item) => (
+        { name: item.rom.name, id: item.rom.romid, date: item.updatedAt }
+      ));
+      dispatch(setRoms(romsFormatted));
     });
   }
-  useEffect(setRomsFromServer, [roms]);
+  useEffect(setRomsFromServer, []);
 
-  const playRom = () => {
-    console.log("WOOOOOOOO!!!");
+  const playRom = (romid) => {
+    console.log("WOOOOOOOO!!!", romid);
   };
 
-  const deleteRom = () => {
-    console.log("aww...");
+  const deleteRom = (romid) => {
+    console.log("aww...", romid);
   };
 
   const list = roms.map((item, idx) => (
     <tr key={idx}>
       <td>{item.name}</td>
-      <td>{item.rom}</td>
-      <td><Button onClick={() => {playRom();}}>Play</Button></td>
-      <td><Button onClick={() => {deleteRom();}}>Delete</Button></td>
+      <td><Button onClick={() => {playRom(item.id);}}>Play</Button></td>
+      <td><Button onClick={() => {deleteRom(item.id);}}>Delete</Button></td>
     </tr>
   ));
 
@@ -57,9 +61,8 @@ export default function Login() {
           Axios.post(process.env.API_URL + '/rom/associate/' + res.data.romid,
             null, { withCredentials: true })
             .then((res) => {
-              ;
+              setRomsFromServer();
             });
-          alert(selectedFile.name + " successfully uploaded.");
         });
     };
 
@@ -75,7 +78,6 @@ export default function Login() {
           <thead>
             <tr>
               <th>Rom Name</th>
-              <th>Rom File</th>
               <th></th>
             </tr>
           </thead>

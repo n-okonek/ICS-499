@@ -6,8 +6,8 @@ export const userSlice = createSlice({
     email: "",
     password: "********",
     roms: [
-      { name: "sample1", rom: "sample1", date: "" },
-      { name: "sample2", rom: "sample2", date: "" }
+      { name: "sample1", id: "sample1", date: "" },
+      { name: "sample2", id: "sample2", date: "" }
     ],
     role: 0,
   },
