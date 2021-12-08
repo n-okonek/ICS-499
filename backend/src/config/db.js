@@ -57,7 +57,7 @@ if (nodeEnv !== 'production') {
     db.sequelize.sync({ force: force })
 }
 
-db.role.findOrCreate({
+await db.role.findOrCreate({
     where: {
         role_id: 1,
         title: 'user'
@@ -66,8 +66,9 @@ db.role.findOrCreate({
         role_id: 1,
         title: 'user'
     }
-}).then(() => {
-    db.role.findOrCreate({
+});
+
+await db.role.findOrCreate({
         where: {
             role_id: 2,
             title: 'admin'
@@ -77,8 +78,8 @@ db.role.findOrCreate({
             title: 'admin'
         }
     });
-}).then(() => {
-    db.role.findOrCreate({
+
+await db.role.findOrCreate({
         where: {
             role_id: 3,
             title: 'warned'
@@ -88,8 +89,8 @@ db.role.findOrCreate({
             title: 'warned'
         }
     });
-}).then(() => {
-    db.role.findOrCreate({
+
+await db.role.findOrCreate({
         where: {
             role_id: 4,
             title: 'banned'
@@ -99,6 +100,5 @@ db.role.findOrCreate({
             title: 'banned'
         }
     });
-})
 
 export default db;
