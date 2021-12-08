@@ -43,6 +43,16 @@ const login = async (req, res, next) => {
     }).send();
 }
 
+const logout = async (req, res, next) => {
+    if (req.cookies.session) {
+        const session = JSON.parse(req.cookies.session);
+        if (session !== req.cookies.session) {
+            UserService.logout(session);
+        }
+    }
+    return res.clearCookie('session').send();
+}
+
 const validateSession = async (req, res, next) => {
     if (!req.cookies.session) {
         // No session cookie is present.
@@ -147,6 +157,7 @@ export default {
     validateSession,
     getInfo,
     login,
+    logout,
     updateUserRole,
     getAllUsers,
     changePassword,
