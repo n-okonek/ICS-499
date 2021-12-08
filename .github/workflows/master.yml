@@ -2,7 +2,8 @@ on:
   push:
     branches:
       - master
-    paths: 'frontend/dist'
+    paths:
+      - 'frontend/dist/**'
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
