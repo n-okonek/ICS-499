@@ -9,7 +9,7 @@ module.exports = merge(common, {
     new DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
-        'API_URL': JSON.stringify('')
+        'API_URL': JSON.stringify('https://emulator-as-a-service.azurewebsites.net')
       }
     })
   ],
