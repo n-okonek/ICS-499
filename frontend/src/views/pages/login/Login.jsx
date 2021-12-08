@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -19,6 +19,8 @@ export default function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [loginMessage, setLoginMessage] = useState("");
+
   const handleChange = (event) => {
     dispatch(setInputs({ ...inputs, [event.target.name]: event.target.value }));
   }
@@ -28,21 +30,24 @@ export default function Login() {
       email: inputs.email,
       password: inputs.password
     }, { withCredentials: true })
-      .then(
+      .then((loginResponse) => {
         Axios.get(process.env.API_URL + "/user/info", { withCredentials: true })
-          .then(
-            (res) => {
-              console.log("setting role to " + res.data.role);
-              dispatch(setUserRole(res.data.role))
+        .then(
+          (res) => {
+            console.log("setting role to " + res.data.role);
+            dispatch(setUserRole(res.data.role))
 
-              dispatch(setInputs({ ...inputs, password: "" }))
-              dispatch(setLoginState(true));
+            dispatch(setInputs({ ...inputs, password: "" }))
+            dispatch(setLoginState(true));
 
-              let path = '/user/profile';
-              history.push(path);
-            }
-          )
-      )
+            let path = '/user/profile';
+            history.push(path);
+          }
+        )
+      })
+      .catch(err => {
+        setLoginMessage(err.response.data.message);
+      });
   }
 
   const handleSubmit = (event) => {
@@ -59,6 +64,7 @@ export default function Login() {
   return (
     <Layout>
       <div className="form-container">
+        <span className="login-message">{loginMessage}</span>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <FloatingLabel controlId="floatingInput" label="Email Adress" className="mb-3">
