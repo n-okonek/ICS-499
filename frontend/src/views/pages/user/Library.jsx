@@ -7,6 +7,7 @@ import Axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoms } from '../../../redux/userSlice';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const roms = useSelector((state) => state.user.roms);
@@ -43,7 +44,13 @@ export default function Login() {
   const list = roms.map((item, idx) => (
     <tr key={idx}>
       <td>{item.name}</td>
-      <td><Button onClick={() => {playRom(item.id);}}>Play</Button></td>
+      <td>
+        <Link to={{
+          pathname: "/play",
+          state: { romid: item.id}}}>
+            <Button>Play</Button>
+        </Link>
+      </td>
       <td><Button onClick={() => {deleteRom(item.id);}}>Delete</Button></td>
     </tr>
   ));
