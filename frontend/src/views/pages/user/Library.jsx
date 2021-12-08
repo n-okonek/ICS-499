@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -12,6 +12,15 @@ export default function Login() {
   const roms = useSelector((state) => state.user.roms);
 
   const [selectedFile, setSelectedFile] = useState();
+
+  // Fetch the ROMs from the server.
+  const setRomsFromServer = () => {
+    Axios.get(process.env.API_URL + '/rom/', { withCredentials: true })
+    .then((res) => {
+      console.log(res.data);
+    });
+  }
+  useEffect(setRomsFromServer, [roms]);
 
   const list = roms.map((item, idx) => (
     <tr key={idx}>
