@@ -110,6 +110,13 @@ const login = async body => {
 
 }
 
+const logout = async userSession => {
+    return await session.destroy({
+        where: {
+            session_id: userSession.session_id
+        }
+    });
+}
 const getAllUsers = async () => {
     return await user.findAll();
 }
@@ -136,6 +143,7 @@ const getUserRoms = async (userid) => {
 export default {
     signup,
     login,
+    logout,
     getUserByEmail,
     getUserById,
     getUserBySession,
