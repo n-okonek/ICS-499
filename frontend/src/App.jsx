@@ -10,6 +10,7 @@ import Library from './views/pages/user/Library';
 import Profile from './views/pages/user/Profile';
 import UserManagement from './views/pages/admin/UserManagement';
 import RomManagement from './views/pages/admin/RomManagement';
+import PlayContainer from './views/pages/play/PlayContainer';
 
 function App() {
   const loggedIn = useSelector((state) => state.login.loggedIn);
@@ -21,18 +22,11 @@ function App() {
         <Route exact path="/" component={OuterScreenView} />
         <Route path="/login" component={Login} />
         <Route path="/create-account" component={CreateAccount} />
+        <Route path="/play" component={PlayContainer} />
         {loggedIn ? (
           <>
             <Route path="/user/library" component={Library} />
             <Route path="/user/profile" component={Profile} />
-            {userRole === 2 ? (
-              <>
-                <Route path="/admin/user-management" component={UserManagement} />
-                <Route path="/admin/rom-management" component={RomManagement} />
-              </>
-            ) : (
-              <Redirect exact to="/login" component={Login} />
-            )}
           </>
         ) : (
           <Redirect exact to="/login" component={Login} />
