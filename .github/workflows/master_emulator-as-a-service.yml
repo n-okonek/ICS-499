@@ -38,6 +38,10 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      DB_HOST: 'emulator-as-a-service-server.mysql.database.azure.com'
+      DB_USER: ${{ secrets.DB_USER }}  
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  
+      PORT: 80
 
     steps:
       - name: Download artifact from build job
