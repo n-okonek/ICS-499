@@ -13,7 +13,7 @@ import RoleRouter from './routes/role.route.js';
 const app = express();
 
 const corsOptions = {
-	origin: 'http://localhost:8080',
+	origin: process.env.CORS_ORIGIN,
 	credentials: true,
 	optionsSuccessStatus: 200
 }
