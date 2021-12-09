@@ -13,12 +13,12 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
 
-    - name: SSH Deploy
-      uses: easingthemes/ssh-deploy@main
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.prod_key }}
+    - name: SSH Auto Deploy
+      uses: hengkx/ssh-deploy@v1.0.1
+      env:
+        HOST: ${{ secrets.SSH_SERVER}}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PASSWORD: ${{ secrets.SSH_PASS }}
+        PORT: ${{secrets.SSH_PORT}}
         SOURCE: '/frontend/dist/*'
-        REMOTE_HOST: '${{ secrets.SSH_SERVER}}'
-        REMOTE_USER: '${{ secrets.SSH_USER }}'
-        REMOTE_PORT: ${{secrets.SSH_PORT}}
         TARGET: '/eaas.glazedproductions.com/'
