@@ -19,6 +19,10 @@ export default function Profile() {
   const [emailData, setEmailData] = useState(false);
   const [emailConfirmData, setEmailConfirmData] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordData, setPasswordData] = useState(false);
+  const [passwordConfirmData, setPasswordConfirmData] = useState(false);
+
   //
   // Email Changing Stuff
   //
@@ -29,12 +33,48 @@ export default function Profile() {
 
   function handleEmailChange(e) {
     setEmailData(e.target.value);
-    console.log(emailData);
   }
 
   function handleEmailConfirmChange(e) {
     setEmailConfirmData(e.target.value);
-    console.log(emailConfirmData);
+  }
+
+  function handleEmailSubmit(e) {
+    if (emailData !== emailConfirmData) {
+      alert("Error: email addresses didn't match!");
+      handleEmailClose();
+      return;
+    }
+
+    console.log("Changed email:", emailData);
+    handleEmailClose();
+  }
+
+  //
+  // Password Changing Stuff
+  //
+
+  function handlePasswordClose() {
+    setShowPassword(false);
+  }
+
+  function handlePasswordChange(e) {
+    setPasswordData(e.target.value);
+  }
+
+  function handlePasswordConfirmChange(e) {
+    setPasswordConfirmData(e.target.value);
+  }
+
+  function handlePasswordSubmit(e) {
+    if (passwordData !== passwordConfirmData) {
+      alert("Error: passwords didn't match!");
+      handlePasswordClose();
+      return;
+    }
+
+    console.log("Changed password:", passwordData);
+    handlePasswordClose();
   }
 
   //
@@ -97,10 +137,45 @@ export default function Profile() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">Cancel</Button>
-          <Button variant="primary">Submit</Button>
+          <Button variant="secondary" onClick={() => {handleEmailClose();}}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => {handleEmailSubmit();}}>
+            Submit
+          </Button>
         </Modal.Footer>
       </Modal>
+
+      <Modal show={showPassword} onHide={handlePasswordClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+          <Form.Group as={Col}>
+            <FloatingLabel label="Password">
+              <Form.Control name="password" type="password"
+                onChange={handlePasswordChange} />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col}>
+            <FloatingLabel label="Confirm Password">
+              <Form.Control name="password2" type="password"
+                onChange={handlePasswordConfirmChange} />
+            </FloatingLabel>
+          </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => {handlePasswordClose();}}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => {handlePasswordSubmit();}}>
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Container className="form-container">
         <Row>
           <Col sm={8}>
@@ -122,7 +197,7 @@ export default function Profile() {
           </Col>
           <Col sm={4}>
             <Row>
-              <Button onClick={() => handleShow("p")}>
+              <Button onClick={() => setShowPassword(true)}>
                 Change Password
               </Button>
             </Row>
