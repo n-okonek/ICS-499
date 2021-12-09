@@ -14,6 +14,7 @@ export default function CreateAccount() {
   const [inputs, setInput] = useState({});
   const history = useHistory();
   const apiURL = process.env.API_URL;
+  const [signupMessage, setSignupMessage] = useState("");
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -30,6 +31,9 @@ export default function CreateAccount() {
       }).then(() => {
         alert("Account successfully created.")
 
+      }).catch((err) => {
+        console.warn(err.response.data.error);
+        setSignupMessage(err.response.data.error);
       });
     }
   }
@@ -54,6 +58,7 @@ export default function CreateAccount() {
   return (
     <Layout>
       <div className="form-container">
+        <span className="signup-message">{signupMessage}</span>
         <Form validated={validated} onSubmit={handleSubmit}>
 
           <Row className="mb-3">
