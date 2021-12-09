@@ -37,6 +37,6 @@ jobs:
           PORT: 80
       with: 
         app-name: 'emulator-as-a-service'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E62265F749042EBAD084183F09BB050 }}
-          package: .
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E62265F749042EBAD084183F09BB050 }}
+        package: .
