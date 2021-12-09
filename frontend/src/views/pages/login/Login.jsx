@@ -67,7 +67,7 @@ export default function Login() {
         <span className="login-message">{loginMessage}</span>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <FloatingLabel controlId="floatingInput" label="Email Adress" className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Email Address" className="mb-3">
               <Form.Control name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
             </FloatingLabel>
           </Form.Group>
