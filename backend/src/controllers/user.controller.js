@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import UserService from '../services/user.service.js';
 import RoleService from '../services/role.service.js';
 import { validationResult } from 'express-validator';
@@ -147,7 +148,14 @@ const changePassword = async (req, res, next) => {
             message: "no password was provided"
         });
     }
-    req.user.password = req.body.password;
+
+    const password = req.body.password;
+
+    const sha = crypto.createHash('sha256');                                     
+    sha.update(password);                                                        
+    const hashed_password = sha.digest('hex');
+
+    req.user.password = hashed_password;
     await req.user.save();
 }
 
