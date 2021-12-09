@@ -32,7 +32,6 @@ export default function CreateAccount() {
         alert("Account successfully created.")
 
       }).catch((err) => {
-        console.warn(err.response.data.error);
         setSignupMessage(err.response.data.error);
       });
     }
