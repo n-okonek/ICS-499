@@ -55,7 +55,7 @@ db.Sequelize = Sequelize;
 if (nodeEnv !== 'production') {
     let force = false;
     if (process.env.FORCE_SYNC === '1') force = true;
-    db.sequelize.sync({ force: force })
+    await db.sequelize.sync({ force: force })
 }
 
 await db.role.findOrCreate({
