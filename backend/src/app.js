@@ -40,7 +40,7 @@ app.use((req, res, next) => {
         message: "Invalid route"
     });
 });
-const port = process.env.PORT || 9002;
+const port = process.env.PORT || 80;
 const server = app.listen(port, () => {
     console.debug(`Server listening on port ${port}`);
 })

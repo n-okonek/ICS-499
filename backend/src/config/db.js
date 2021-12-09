@@ -4,9 +4,14 @@ import models from '../models/index.js';
 
 let db = {}
 
-if (!process.env.DB_CONNECTION) {
+if (process.env.NODE_ENV === 'production' && !process.env.DB_CONNECTION) {
     console.error('Invalid mysql connection string. Exiting');
     throw new Error('Invalid mysql connection string.');
+}
+
+let db_connection = '';
+if (process.env.NODE_ENV === 'production') {
+    db_connection = `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/eaas`;
 }
 
 /**
@@ -19,7 +24,7 @@ let logging = false;
 if (process.env.ENABLE_DB_LOGGING === '1') logging = true;
 
 if (nodeEnv === 'production') {
-    sequelize = new Sequelize(process.env.DB_CONNECTION);
+    sequelize = new Sequelize(db_connection);
 } else if (nodeEnv === 'development') {
     sequelize = new Sequelize({
         dialect: 'sqlite',
