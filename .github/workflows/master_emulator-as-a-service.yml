@@ -49,13 +49,13 @@ jobs:
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        env:
+          DB_HOST: 'emulator-as-a-service-server.mysql.database.azure.com'
+          DB_USER: ${{ secrets.DB_USER }}  
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  
+          PORT: 80
         with:
           app-name: 'emulator-as-a-service'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E62265F749042EBAD084183F09BB050 }}
           package: .
-          env:
-            DB_HOST: 'emulator-as-a-service-server.mysql.database.azure.com'
-            DB_USER: ${{ secrets.DB_USER }}  
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  
-            PORT: 80
