@@ -41,17 +41,18 @@ const existingAccount = async body => {
 }
 
 const signup = async body => {
-    const {email, password} = body;
-    
+    const { email, password, role_id } = body;
+
     const sha = crypto.createHash('sha256');
     sha.update(password);
     const hashed_password = sha.digest('hex');
-    
+
     const created_user = await user.create({
         email,
-        password: hashed_password
+        role_id,
+        password: hashed_password,
     });
-    
+
     return created_user;
 }
 
@@ -66,11 +67,11 @@ const verifyCredentials = async (email, password) => {
     if (user === null) {
         return null;
     }
-    
+
     if (user.password !== hashed_password) {
         return null;
     }
-    
+
     return user;
 }
 
@@ -80,11 +81,11 @@ const getSessionElseCreate = async user_id => {
             user_id
         }
     });
-    
+
     if (existingSession) {
         return existingSession;
     }
-    
+
     // create a new session id
     const new_session_id = Date.now().toString();
 
@@ -95,7 +96,7 @@ const getSessionElseCreate = async user_id => {
 }
 
 const login = async body => {
-    const {email, password} = body;
+    const { email, password } = body;
 
     const verifiedUser = await verifyCredentials(email, password);
 
@@ -103,27 +104,34 @@ const login = async body => {
     if (verifiedUser === null) {
         return null;
     }
-    
+
     // Get an active session or create one. Send the session object to caller
     return await getSessionElseCreate(verifiedUser.user_id);
-    
+
 }
 
-const getAllUsers = async() => {
+const logout = async userSession => {
+    return await session.destroy({
+        where: {
+            session_id: userSession.session_id
+        }
+    });
+}
+const getAllUsers = async () => {
     return await user.findAll();
 }
 
-const updateUserRole = async(user_id, newRoleId) => {
+const updateUserRole = async (user_id, newRoleId) => {
     const userToUpdate = await user.findByPk(user_id);
 
-    if(userToUpdate === null) return null;
+    if (userToUpdate === null) return null;
 
     userToUpdate.role_id = newRoleId;
     await userToUpdate.save();
     return userToUpdate;
 }
 
-const getUserRoms = async(userid) => {
+const getUserRoms = async (userid) => {
     return await user_rom.findAll({
         where: {
             userid: userid
@@ -135,6 +143,7 @@ const getUserRoms = async(userid) => {
 export default {
     signup,
     login,
+    logout,
     getUserByEmail,
     getUserById,
     getUserBySession,

@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import UserService from '../services/user.service.js';
 import RoleService from '../services/role.service.js';
 import { validationResult } from 'express-validator';
@@ -20,10 +21,6 @@ const signup = async (req, res, next) => {
     if (user === null) {
         return res.status(422).json({ error: "User signup failed." });
     }
-    const userRole = await RoleService.getRoleByTitle(body.title);
-    if(userRole !== null){
-        await UserService.updateUserRole(user.user_id, userRole.role_id);
-    }
 
     return res.status(200).send();
 }
@@ -39,10 +36,22 @@ const login = async (req, res, next) => {
     if (login_session === null) {
         return res.status(422).json({ message: "Invalid email or password" });
     }
+
+    res.cookie('session', JSON.stringify(login_session));
     return res.writeHead(200, {
-        "Set-Cookie": "session=" + JSON.stringify(login_session) + "; HttpOnly",
+        "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Credentials": "true"
     }).send();
+}
+
+const logout = async (req, res, next) => {
+    if (req.cookies.session) {
+        const session = JSON.parse(req.cookies.session);
+        if (session !== req.cookies.session) {
+            UserService.logout(session);
+        }
+    }
+    return res.clearCookie('session').send();
 }
 
 const validateSession = async (req, res, next) => {
@@ -90,7 +99,7 @@ const updateUserRole = async (req, res, next) => {
 
     const existingRole = await RoleService.getRoleByTitle(body.title);
 
-    if (existingRole === null ) {
+    if (existingRole === null) {
         res.status(404).json({ error: `Role with title ${ body.title } does not exist. Cannot update user.` })
         return;
     }
@@ -139,7 +148,14 @@ const changePassword = async (req, res, next) => {
             message: "no password was provided"
         });
     }
-    req.user.password = req.body.password;
+
+    const password = req.body.password;
+
+    const sha = crypto.createHash('sha256');                                     
+    sha.update(password);                                                        
+    const hashed_password = sha.digest('hex');
+
+    req.user.password = hashed_password;
     await req.user.save();
 }
 
@@ -149,6 +165,7 @@ export default {
     validateSession,
     getInfo,
     login,
+    logout,
     updateUserRole,
     getAllUsers,
     changePassword,

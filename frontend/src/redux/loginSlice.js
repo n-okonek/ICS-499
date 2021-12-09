@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const loginSlice = createSlice({
   name: 'login',
   initialState: {
-    loggedIn: false,
-    userRole: "",
+    loggedIn: document.cookie !== '',
+    userRole: 1,
     inputs: {
       email: "",
       password: "",

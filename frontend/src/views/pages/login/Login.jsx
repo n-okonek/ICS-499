@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { setLoginState, setInputs } from '../../../redux/loginSlice';
+import { setUserRole } from '../../../redux/loginSlice';
 
 import Axios from 'axios';
 
@@ -18,6 +19,8 @@ export default function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [loginMessage, setLoginMessage] = useState("");
+
   const handleChange = (event) => {
     dispatch(setInputs({ ...inputs, [event.target.name]: event.target.value }));
   }
@@ -26,13 +29,25 @@ export default function Login() {
     Axios.post(process.env.API_URL + "/user/login", {
       email: inputs.email,
       password: inputs.password
-    }, { withCredentials: true }).then(() => {
-      dispatch(setInputs({ ...inputs, password: "" }))
-      dispatch(setLoginState(true));
+    }, { withCredentials: true })
+      .then((loginResponse) => {
+        Axios.get(process.env.API_URL + "/user/info", { withCredentials: true })
+        .then(
+          (res) => {
+            console.log("setting role to " + res.data.role);
+            dispatch(setUserRole(res.data.role))
 
-      let path = '/user/profile';
-      history.push(path);
-    });
+            dispatch(setInputs({ ...inputs, password: "" }))
+            dispatch(setLoginState(true));
+
+            let path = '/user/profile';
+            history.push(path);
+          }
+        )
+      })
+      .catch(err => {
+        setLoginMessage(err.response.data.message);
+      });
   }
 
   const handleSubmit = (event) => {
@@ -49,9 +64,10 @@ export default function Login() {
   return (
     <Layout>
       <div className="form-container">
+        <span className="login-message">{loginMessage}</span>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <FloatingLabel controlId="floatingInput" label="Email Adress" className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Email Address" className="mb-3">
               <Form.Control name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
             </FloatingLabel>
           </Form.Group>

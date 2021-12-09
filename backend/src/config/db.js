@@ -57,4 +57,48 @@ if (nodeEnv !== 'production') {
     db.sequelize.sync({ force: force })
 }
 
+await db.role.findOrCreate({
+    where: {
+        role_id: 1,
+        title: 'user'
+    },
+    default: {
+        role_id: 1,
+        title: 'user'
+    }
+});
+
+await db.role.findOrCreate({
+        where: {
+            role_id: 2,
+            title: 'admin'
+        },
+        default: {
+            role_id: 2,
+            title: 'admin'
+        }
+    });
+
+await db.role.findOrCreate({
+        where: {
+            role_id: 3,
+            title: 'warned'
+        },
+        default: {
+            role_id: 3,
+            title: 'warned'
+        }
+    });
+
+await db.role.findOrCreate({
+        where: {
+            role_id: 4,
+            title: 'banned'
+        },
+        default: {
+            role_id: 4,
+            title: 'banned'
+        }
+    });
+
 export default db;
