@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'frontend/dist/**'
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+
+    - name: SSH Auto Deploy
+      uses: hengkx/ssh-deploy@v1.0.1
+      env:
+        HOST: ${{ secrets.SSH_SERVER}}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PASSWORD: ${{ secrets.SSH_PASS }}
+        PORT: ${{secrets.SSH_PORT}}
+        SOURCE: '/frontend/dist/*'
+        TARGET: '/eaas.glazedproductions.com/'
