@@ -46,7 +46,7 @@ export default function Profile() {
       return;
     }
 
-    console.log("Changed email:", emailData);
+    changeEmail();
     handleEmailClose();
   }
 
@@ -73,7 +73,7 @@ export default function Profile() {
       return;
     }
 
-    console.log("Changed password:", passwordData);
+    changePassword();
     handlePasswordClose();
   }
 
@@ -102,7 +102,7 @@ export default function Profile() {
 
   function changeEmail() {
     Axios.post(process.env.API_URL + "/user/change-email", {
-      email: tempUserInfo.email
+      email: emailData
     }, { withCredentials: true }).then(() => {
       alert("Email successfully changed")
     });
@@ -110,7 +110,7 @@ export default function Profile() {
 
   function changePassword() {
     Axios.post(process.env.API_URL + "/user/change-password", {
-      password: tempUserInfo.password
+      password: passwordData
     }, { withCredentials: true }).then(() => {
       alert("Password successfully changed")
     });
