@@ -1,10 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import Emulator from '../../../components/Emulator';
 import { Buffer } from 'buffer';
 
+import Layout from '../layout';
+import Emulator from '../../../components/Emulator';
+import tv from '../../../images/tv.png';
+
 export default function(props) {
+    const history = useHistory();
     const { romid } = props.location.state;
 
     const [romData, setRomData] = useState(null);
@@ -45,13 +50,21 @@ export default function(props) {
     }
     
     return (
+    <Layout>
+      <div className="outer-screen">
+        <img src={tv} />
         <div id="emulator-container">
             <div id="screen-container">
                 {romData && (
                     <Emulator romData={romData} paused={paused} />
-                )}
+                    )}
             </div>
-            <Button id="pause-button" variant={paused ? 'primary' : 'danger'} onClick={() => setPaused(!paused)}>{paused ? 'Resume' : 'Pause'}</Button>
+            <div id="control-buttons-container">
+                <Button id="control-pause" variant={paused ? 'primary' : 'danger'} onClick={() => setPaused(!paused)}>{paused ? 'Play' : 'Pause'}</Button>
+                <Button id="control-previous" variant='secondary' onClick={() => history.push('/user/library')}>Go Back</Button>
+            </div>
         </div>
+        </div>
+    </Layout>
     )
 }

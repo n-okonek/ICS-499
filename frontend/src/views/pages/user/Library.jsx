@@ -13,6 +13,7 @@ export default function Login() {
   const roms = useSelector((state) => state.user.roms);
 
   const [selectedFile, setSelectedFile] = useState();
+  const [uploadEnabled, setUploadEnabled] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -27,10 +28,6 @@ export default function Login() {
     });
   }
   useEffect(setRomsFromServer, []);
-
-  const playRom = (romid) => {
-    console.log("WOOOOOOOO!!!", romid);
-  };
 
   const deleteRom = (romid) => {
     Axios.delete(process.env.API_URL + '/rom/' + romid,
@@ -57,6 +54,7 @@ export default function Login() {
 
   // Change which file is selected.
   const handleFileChange = (e) => {
+    setUploadEnabled(true);
     setSelectedFile(e.target.files[0]);
   };
 
@@ -85,7 +83,7 @@ export default function Login() {
     <Layout>
       <div className="grid-container">
         <Form.Control type="file" onChange={handleFileChange} />
-        <Button onClick={handleFileUpload}>Upload ROM</Button>
+        <Button id="upload-button" disabled={uploadEnabled === false} onClick={handleFileUpload}>Upload ROM</Button>
         <Table striped hover>
           <thead>
             <tr>

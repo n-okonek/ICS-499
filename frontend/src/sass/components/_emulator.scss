@@ -23,6 +23,17 @@
   margin-top: 120px;
 }
 
+#control-pause {
+  margin-right: 10px;
+}
+
+#control-buttons-container {
+  display: flex;
+  flex-grow: 1;
+  margin-top: 120px;
+  width: 100%
+}
+
 #rom-selector-container {
   display: flex;
   flex-direction: column;
