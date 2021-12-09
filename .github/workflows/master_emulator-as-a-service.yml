@@ -1,0 +1,41 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - emulator-as-a-service
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+    - uses: actions/checkout@main
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: npm install, build, and test
+      run: |
+        # Build and test the project, then
+        # deploy to Azure Web App.
+        npm install
+      working-directory: ./backend
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v2
+      env:
+          DB_HOST: 'emulator-as-a-service-server.mysql.database.azure.com'
+          DB_USER: ${{ secrets.DB_USER }}  
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  
+          PORT: 80
+      with: 
+        app-name: 'emulator-as-a-service'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E62265F749042EBAD084183F09BB050 }}
