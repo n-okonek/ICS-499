@@ -1,4 +1,7 @@
 */package-lock.json
 */node_modules
+node_modules/*
+sqlite/
+SQL/
 .vscode/settings.json
 jsconfig.json
