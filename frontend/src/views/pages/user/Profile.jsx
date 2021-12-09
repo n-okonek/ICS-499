@@ -6,8 +6,6 @@ import { setEmail } from '../../../redux/userSlice';
 
 import Layout from '../layout';
 import { Row, Col, Button, Container, Modal, Form, FloatingLabel } from 'react-bootstrap';
-import { ChangeEmail } from '../../../components/modals/ChangeEmail';
-import { ChangePassword } from '../../../components/modals/ChangePassword';
 
 export default function Profile() {
 
@@ -91,14 +89,6 @@ export default function Profile() {
       });
   }
   useEffect(updateUserInfo, []);
-
-  function handleShow(modal) {
-    if (modal === "e") {
-      <ChangeEmail show={true} />
-    } else if (modal === "p") {
-      <ChangePassword show={true} />
-    }
-  }
 
   function changeEmail() {
     Axios.post(process.env.API_URL + "/user/change-email", {
